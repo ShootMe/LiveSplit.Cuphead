@@ -14,8 +14,6 @@ namespace LiveSplit.Cuphead {
 			InitializeComponent();
 
 			Splits = new List<SplitName>();
-			Splits.Add(SplitName.StartGame);
-			Splits.Add(SplitName.EndGame);
 			isLoading = false;
 		}
 

@@ -69,8 +69,8 @@ namespace LiveSplit.Cuphead {
 			bool loading = mem.Loading();
 			bool ending = mem.LevelEnding() && mem.LevelWon();
 
-			if (currentSplit < Model.CurrentState.Run.Count && currentSplit + 1 < settings.Splits.Count) {
-				SplitName split = settings.Splits[currentSplit + 1];
+			if (currentSplit < Model.CurrentState.Run.Count) {
+				SplitName split = currentSplit + 1 < settings.Splits.Count ? settings.Splits[currentSplit + 1] : SplitName.EndGame;
 				switch (split) {
 					case SplitName.StartGame: shouldSplit = inGame && loading && sceneName == "scene_cutscene_intro"; break;
 					case SplitName.EndGame: shouldSplit = sceneName == "scene_cutscene_credits"; break;
