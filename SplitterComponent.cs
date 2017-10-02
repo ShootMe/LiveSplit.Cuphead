@@ -92,7 +92,7 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_dice_gate: shouldSplit = sceneName == "scene_level_dice_gate"; break;
 					case SplitName.level_dice_palace_main: shouldSplit = sceneName == "scene_level_dice_palace_main"; break;
 
-					case SplitName.level_tutorial: shouldSplit = sceneName == "scene_level_tutorial" && ending; break;
+					case SplitName.level_tutorial: shouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
 
 					case SplitName.level_veggies: shouldSplit = sceneName == "scene_level_veggies" && ending; break;
 					case SplitName.level_slime: shouldSplit = sceneName == "scene_level_slime" && ending; break;
@@ -309,7 +309,7 @@ namespace LiveSplit.Cuphead {
 
 		[Description("Shop (Enter Scene)"), ToolTip("Splits when current scene is 'Shop'")]
 		Shop,
-		[Description("World 1 (Enter Scene)"), ToolTip("Splits when cu2rrent scene is 'Map World 1'")]
+		[Description("World 1 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 1'")]
 		map_world_1,
 		[Description("World 2 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 2'")]
 		map_world_2,
@@ -327,93 +327,93 @@ namespace LiveSplit.Cuphead {
 		[Description("Tutorial (Finished)"), ToolTip("Splits when leaving scene 'Tutorial'")]
 		level_tutorial,
 
-		[Description("Veggies (Finished)"), ToolTip("Splits when leaving scene 'Veggies'")]
+		[Description("Veggies (Finished)"), ToolTip("Splits when level is finished")]
 		level_veggies,
-		[Description("Slime (Finished)"), ToolTip("Splits when leaving scene 'Slime'")]
+		[Description("Slime (Finished)"), ToolTip("Splits when level is finished")]
 		level_slime,
-		[Description("Flower (Finished)"), ToolTip("Splits when leaving scene 'Flower'")]
+		[Description("Flower (Finished)"), ToolTip("Splits when level is finished")]
 		level_flower,
-		[Description("Frogs (Finished)"), ToolTip("Splits when leaving scene 'Frogs'")]
+		[Description("Frogs (Finished)"), ToolTip("Splits when level is finished")]
 		level_frogs,
-		[Description("Blimp - Flying (Finished)"), ToolTip("Splits when leaving scene is 'Blimp'")]
+		[Description("Blimp - Flying (Finished)"), ToolTip("Splits when level is finished")]
 		level_flying_blimp,
 
-		[Description("Baroness (Finished)"), ToolTip("Splits when leaving scene 'Baroness'")]
+		[Description("Baroness (Finished)"), ToolTip("Splits when level is finished")]
 		level_baroness,
-		[Description("Clown (Finished)"), ToolTip("Splits when leaving scene 'Clown'")]
+		[Description("Clown (Finished)"), ToolTip("Splits when level is finished")]
 		level_clown,
-		[Description("Dragon (Finished)"), ToolTip("Splits when leaving scene 'Dragon'")]
+		[Description("Dragon (Finished)"), ToolTip("Splits when level is finished")]
 		level_dragon,
-		[Description("Genie - Flying (Finished)"), ToolTip("Splits when leaving scene is 'Genie'")]
+		[Description("Genie - Flying (Finished)"), ToolTip("Splits when level is finished")]
 		level_flying_genie,
-		[Description("Bird - Flying (Finished)"), ToolTip("Splits when leaving scene is 'Bird'")]
+		[Description("Bird - Flying (Finished)"), ToolTip("Splits when level is finished")]
 		level_flying_bird,
 
-		[Description("Bee (Finished)"), ToolTip("Splits when leaving scene 'Bee'")]
+		[Description("Bee (Finished)"), ToolTip("Splits when level is finished")]
 		level_bee,
-		[Description("Pirate (Finished)"), ToolTip("Splits when leaving scene 'Pirate'")]
+		[Description("Pirate (Finished)"), ToolTip("Splits when level is finished")]
 		level_pirate,
-		[Description("Sally Stage Play (Finished)"), ToolTip("Splits when leaving scene 'Sally Stage Play'")]
+		[Description("Sally Stage Play (Finished)"), ToolTip("Splits when level is finished")]
 		level_sally_stage_play,
-		[Description("Mouse (Finished)"), ToolTip("Splits when leaving scene 'Mouse'")]
+		[Description("Mouse (Finished)"), ToolTip("Splits when level is finished")]
 		level_mouse,
-		[Description("Robot (Finished)"), ToolTip("Splits when leaving scene 'Robot'")]
+		[Description("Robot (Finished)"), ToolTip("Splits when level is finished")]
 		level_robot,
-		[Description("Train (Finished)"), ToolTip("Splits when leaving scene 'Train'")]
+		[Description("Train (Finished)"), ToolTip("Splits when level is finished")]
 		level_train,
-		[Description("Mermaid - Flying (Finished)"), ToolTip("Splits when leaving scene is 'Mermaid'")]
+		[Description("Mermaid - Flying (Finished)"), ToolTip("Splits when level is finished")]
 		level_flying_mermaid,
 
-		[Description("Platforming 1-1 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 1-1'")]
+		[Description("Platforming 1-1 (Finished)"), ToolTip("Splits when level is finished'")]
 		level_platforming_1_1F,
-		[Description("Platforming 1-2 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 1-2'")]
+		[Description("Platforming 1-2 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_1_2F,
-		[Description("Platforming 2-1 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 2-1'")]
+		[Description("Platforming 2-1 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_2_1F,
-		[Description("Platforming 2-2 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 2-2'")]
+		[Description("Platforming 2-2 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_2_2F,
-		[Description("Platforming 3-1 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 3-1'")]
+		[Description("Platforming 3-1 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_3_1F,
-		[Description("Platforming 3-2 (Finished)"), ToolTip("Splits when leaving scene 'Platforming 3-2'")]
+		[Description("Platforming 3-2 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_3_2F,
 
-		[Description("Bat (Finished)"), ToolTip("Splits when leaving scene 'Bat'")]
+		[Description("Bat (Finished)"), ToolTip("Splits when level is finished")]
 		level_bat,
-		[Description("Devil (Finished)"), ToolTip("Splits when leaving scene 'Devil'")]
+		[Description("Devil (Finished)"), ToolTip("Splits when level is finished")]
 		level_devil,
 
-		[Description("Jelly - Airship (Finished)"), ToolTip("Splits when leaving scene is 'Jelly'")]
+		[Description("Jelly - Airship (Finished)"), ToolTip("Splits when level is finished")]
 		level_airship_jelly,
-		[Description("Stork - Airship (Finished)"), ToolTip("Splits when leaving scene is 'Stork'")]
+		[Description("Stork - Airship (Finished)"), ToolTip("Splits when level is finished")]
 		level_airship_stork,
-		[Description("Crab - Airship (Finished)"), ToolTip("Splits when leaving scene is 'Crab'")]
+		[Description("Crab - Airship (Finished)"), ToolTip("Splits when level is finished")]
 		level_airship_crab,
-		[Description("Clam - Airship (Finished)"), ToolTip("Splits when leaving scene is 'Clam'")]
+		[Description("Clam - Airship (Finished)"), ToolTip("Splits when level is finished")]
 		level_airship_clam,
 
-		[Description("Domino - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Domino'")]
+		[Description("Domino - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_domino,
-		[Description("Card - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Card'")]
+		[Description("Card - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_card,
-		[Description("Chips - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Chips'")]
+		[Description("Chips - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_chips,
-		[Description("Cigar - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Cigar'")]
+		[Description("Cigar - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_cigar,
-		[Description("Booze - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Booze'")]
+		[Description("Booze - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_booze,
-		[Description("Roulette - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Roulette'")]
+		[Description("Roulette - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_roulette,
-		[Description("Pachinko - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Pachinko'")]
+		[Description("Pachinko - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_pachinko,
-		[Description("Rabbit - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Rabbit'")]
+		[Description("Rabbit - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_rabbit,
-		[Description("Light - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Light'")]
+		[Description("Light - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_light,
-		[Description("Eight Ball - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Eight Ball'")]
+		[Description("Eight Ball - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_eight_ball,
-		[Description("Flying Horse - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Flying Horse'")]
+		[Description("Flying Horse - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_flying_horse,
-		[Description("Flying Memory - Dice (Finished)"), ToolTip("Splits when leaving scene is 'Flying Memory'")]
+		[Description("Flying Memory - Dice (Finished)"), ToolTip("Splits when level is finished")]
 		level_dice_palace_flying_memory,
 	}
 }
