@@ -64,6 +64,7 @@ namespace LiveSplit.Cuphead {
 	public enum Mode {
 		Easy,
 		Normal,
-		Hard
+		Hard,
+		None
 	}
 }

@@ -95,10 +95,7 @@ namespace LiveSplit.Cuphead {
 					case SplitName.map_world_2: shouldSplit = sceneName == "scene_map_world_2"; break;
 					case SplitName.map_world_3: shouldSplit = sceneName == "scene_map_world_3"; break;
 					case SplitName.map_world_4: shouldSplit = sceneName == "scene_map_world_4"; break;
-					case SplitName.level_mausoleum: shouldSplit = sceneName == "scene_level_mausoleum"; break;
-					case SplitName.level_dice_gate: shouldSplit = sceneName == "scene_level_dice_gate"; break;
-					case SplitName.level_dice_palace_main: shouldSplit = sceneName == "scene_level_dice_palace_main"; break;
-
+					
 					case SplitName.level_tutorial: shouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
 
 					case SplitName.level_veggies: shouldSplit = sceneName == "scene_level_veggies" && ending; break;
@@ -106,12 +103,18 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_flower: shouldSplit = sceneName == "scene_level_flower" && ending; break;
 					case SplitName.level_frogs: shouldSplit = sceneName == "scene_level_frogs" && ending; break;
 					case SplitName.level_flying_blimp: shouldSplit = sceneName == "scene_level_flying_blimp" && ending; break;
+					case SplitName.level_platforming_1_1F: shouldSplit = sceneName == "scene_level_platforming_1_1F" && ending; break;
+					case SplitName.level_platforming_1_2F: shouldSplit = sceneName == "scene_level_platforming_1_2F" && ending; break;
+					case SplitName.level_mausoleum_1: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Easy && ending; break;
 
 					case SplitName.level_baroness: shouldSplit = sceneName == "scene_level_baroness" && ending; break;
 					case SplitName.level_clown: shouldSplit = sceneName == "scene_level_clown" && ending; break;
 					case SplitName.level_dragon: shouldSplit = sceneName == "scene_level_dragon" && ending; break;
 					case SplitName.level_flying_genie: shouldSplit = sceneName == "scene_level_flying_genie" && ending; break;
 					case SplitName.level_flying_bird: shouldSplit = sceneName == "scene_level_flying_bird" && ending; break;
+					case SplitName.level_platforming_2_1F: shouldSplit = sceneName == "scene_level_platforming_2_1F" && ending; break;
+					case SplitName.level_platforming_2_2F: shouldSplit = sceneName == "scene_level_platforming_2_2F" && ending; break;
+					case SplitName.level_mausoleum_2: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Normal && ending; break;
 
 					case SplitName.level_bee: shouldSplit = sceneName == "scene_level_bee" && ending; break;
 					case SplitName.level_pirate: shouldSplit = sceneName == "scene_level_pirate" && ending; break;
@@ -120,34 +123,12 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_robot: shouldSplit = sceneName == "scene_level_robot" && ending; break;
 					case SplitName.level_train: shouldSplit = sceneName == "scene_level_train" && ending; break;
 					case SplitName.level_flying_mermaid: shouldSplit = sceneName == "scene_level_flying_mermaid" && ending; break;
-
-					case SplitName.level_platforming_1_1F: shouldSplit = sceneName == "scene_level_platforming_1_1F" && ending; break;
-					case SplitName.level_platforming_1_2F: shouldSplit = sceneName == "scene_level_platforming_1_2F" && ending; break;
-					case SplitName.level_platforming_2_1F: shouldSplit = sceneName == "scene_level_platforming_2_1F" && ending; break;
-					case SplitName.level_platforming_2_2F: shouldSplit = sceneName == "scene_level_platforming_2_2F" && ending; break;
 					case SplitName.level_platforming_3_1F: shouldSplit = sceneName == "scene_level_platforming_3_1F" && ending; break;
 					case SplitName.level_platforming_3_2F: shouldSplit = sceneName == "scene_level_platforming_3_2F" && ending; break;
+					case SplitName.level_mausoleum_3: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Hard && ending; break;
 
-					case SplitName.level_bat: shouldSplit = sceneName == "scene_level_bat" && ending; break;
+					case SplitName.level_dice_palace_main: shouldSplit = sceneName == "scene_level_dice_palace_main" && mem.LevelComplete(Levels.DicePalaceMain); break;
 					case SplitName.level_devil: shouldSplit = sceneName == "scene_level_devil" && ending; break;
-
-					case SplitName.level_airship_jelly: shouldSplit = sceneName == "scene_level_airship_jelly" && ending; break;
-					case SplitName.level_airship_stork: shouldSplit = sceneName == "scene_level_airship_stork" && ending; break;
-					case SplitName.level_airship_crab: shouldSplit = sceneName == "scene_level_airship_crab" && ending; break;
-					case SplitName.level_airship_clam: shouldSplit = sceneName == "scene_level_airship_clam" && ending; break;
-
-					case SplitName.level_dice_palace_domino: shouldSplit = sceneName == "scene_level_dice_palace_domino" && ending; break;
-					case SplitName.level_dice_palace_card: shouldSplit = sceneName == "scene_level_dice_palace_card" && ending; break;
-					case SplitName.level_dice_palace_chips: shouldSplit = sceneName == "scene_level_dice_palace_chips" && ending; break;
-					case SplitName.level_dice_palace_cigar: shouldSplit = sceneName == "scene_level_dice_palace_cigar" && ending; break;
-					case SplitName.level_dice_palace_booze: shouldSplit = sceneName == "scene_level_dice_palace_booze" && ending; break;
-					case SplitName.level_dice_palace_roulette: shouldSplit = sceneName == "scene_level_dice_palace_roulette" && ending; break;
-					case SplitName.level_dice_palace_pachinko: shouldSplit = sceneName == "scene_level_dice_palace_pachinko" && ending; break;
-					case SplitName.level_dice_palace_rabbit: shouldSplit = sceneName == "scene_level_dice_palace_rabbit" && ending; break;
-					case SplitName.level_dice_palace_light: shouldSplit = sceneName == "scene_level_dice_palace_light" && ending; break;
-					case SplitName.level_dice_palace_eight_ball: shouldSplit = sceneName == "scene_level_dice_palace_eight_ball" && ending; break;
-					case SplitName.level_dice_palace_flying_horse: shouldSplit = sceneName == "scene_level_dice_palace_flying_horse" && ending; break;
-					case SplitName.level_dice_palace_flying_memory: shouldSplit = sceneName == "scene_level_dice_palace_flying_memory" && ending; break;
 				}
 			}
 
@@ -305,9 +286,9 @@ namespace LiveSplit.Cuphead {
 		[Description("Manual Split (Not Automatic)"), ToolTip("Specify to split manually when an automatic split does not exist yet")]
 		ManualSplit,
 
-		[Description("Select Save Slot (Start Game)"), ToolTip("Splits when you select a new save slot")]
+		[Description("Start Game (Select Save)"), ToolTip("Splits when you select a new save slot")]
 		StartGame,
-		[Description("Credits (End Game)"), ToolTip("Splits when entering the credits")]
+		[Description("End Game (Credits)"), ToolTip("Splits when entering the credits")]
 		EndGame,
 		[Description("Enter Level (IL)"), ToolTip("Splits when entering any level")]
 		EnterLevel,
@@ -324,103 +305,70 @@ namespace LiveSplit.Cuphead {
 		map_world_3,
 		[Description("World 4 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 4'")]
 		map_world_4,
-		[Description("Mausoleum (Enter Scene)"), ToolTip("Splits when current scene is 'Masoleum'")]
-		level_mausoleum,
-		[Description("Dice Gate (Enter Scene)"), ToolTip("Splits when current scene is 'Dice Gate'")]
-		level_dice_gate,
-		[Description("Dice Main (Enter Scene)"), ToolTip("Splits when current scene is 'Dice Main'")]
-		level_dice_palace_main,
-
-		[Description("Tutorial (Finished)"), ToolTip("Splits when leaving scene 'Tutorial'")]
+		
+		[Description("Tutorial (Level)"), ToolTip("Splits when leaving scene 'Tutorial'")]
 		level_tutorial,
 
-		[Description("The Root Pack (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("The Root Pack (Boss)"), ToolTip("Splits when level is finished")]
 		level_veggies,
-		[Description("Goopy Le Grande (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Goopy Le Grande (Boss)"), ToolTip("Splits when level is finished")]
 		level_slime,
-		[Description("Flower (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Cagney Carnation (Boss)"), ToolTip("Splits when level is finished")]
 		level_flower,
-		[Description("Frogs (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Ribby And Croaks (Boss)"), ToolTip("Splits when level is finished")]
 		level_frogs,
-		[Description("Blimp - Flying (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Hilda Berg (Boss)"), ToolTip("Splits when level is finished")]
 		level_flying_blimp,
 
-		[Description("Baroness (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Baroness Von Bon Bon (Boss)"), ToolTip("Splits when level is finished")]
 		level_baroness,
-		[Description("Clown (Finished)"), ToolTip("Splits when level is finished")]
-		level_clown,
-		[Description("Dragon (Finished)"), ToolTip("Splits when level is finished")]
-		level_dragon,
-		[Description("Genie - Flying (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Djimmi The Great (Boss)"), ToolTip("Splits when level is finished")]
 		level_flying_genie,
-		[Description("Bird - Flying (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Beppi The Clown (Boss)"), ToolTip("Splits when level is finished")]
+		level_clown,
+		[Description("Wally Warbles (Boss)"), ToolTip("Splits when level is finished")]
 		level_flying_bird,
+		[Description("Grim Matchstick (Boss)"), ToolTip("Splits when level is finished")]
+		level_dragon,
 
-		[Description("Bee (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Rumor Honeybottoms (Boss)"), ToolTip("Splits when level is finished")]
 		level_bee,
-		[Description("Pirate (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Captin Brineybeard (Boss)"), ToolTip("Splits when level is finished")]
 		level_pirate,
-		[Description("Sally Stage Play (Finished)"), ToolTip("Splits when level is finished")]
-		level_sally_stage_play,
-		[Description("Mouse (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Werner Werman (Boss)"), ToolTip("Splits when level is finished")]
 		level_mouse,
-		[Description("Robot (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Dr. Kahl's Robot (Boss)"), ToolTip("Splits when level is finished")]
 		level_robot,
-		[Description("Train (Finished)"), ToolTip("Splits when level is finished")]
-		level_train,
-		[Description("Mermaid - Flying (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Sally Stageplay (Boss)"), ToolTip("Splits when level is finished")]
+		level_sally_stage_play,
+		[Description("Cala Maria (Boss)"), ToolTip("Splits when level is finished")]
 		level_flying_mermaid,
+		[Description("Phantom Express (Boss)"), ToolTip("Splits when level is finished")]
+		level_train,
 
-		[Description("Run 'n Gun 1-1 (Finished)"), ToolTip("Splits when level is finished'")]
-		level_platforming_1_1F,
-		[Description("Platforming 1-2 (Finished)"), ToolTip("Splits when level is finished")]
-		level_platforming_1_2F,
-		[Description("Platforming 2-1 (Finished)"), ToolTip("Splits when level is finished")]
-		level_platforming_2_1F,
-		[Description("Platforming 2-2 (Finished)"), ToolTip("Splits when level is finished")]
-		level_platforming_2_2F,
-		[Description("Platforming 3-1 (Finished)"), ToolTip("Splits when level is finished")]
-		level_platforming_3_1F,
-		[Description("Platforming 3-2 (Finished)"), ToolTip("Splits when level is finished")]
-		level_platforming_3_2F,
-
-		[Description("Bat (Finished)"), ToolTip("Splits when level is finished")]
-		level_bat,
+		[Description("King Dice (Boss)"), ToolTip("Splits when all mini boss dice levels are complete")]
+		level_dice_palace_main,
 		[Description("Devil (Finished)"), ToolTip("Splits when level is finished")]
 		level_devil,
 
-		[Description("Jelly - Airship (Finished)"), ToolTip("Splits when level is finished")]
-		level_airship_jelly,
-		[Description("Stork - Airship (Finished)"), ToolTip("Splits when level is finished")]
-		level_airship_stork,
-		[Description("Crab - Airship (Finished)"), ToolTip("Splits when level is finished")]
-		level_airship_crab,
-		[Description("Clam - Airship (Finished)"), ToolTip("Splits when level is finished")]
-		level_airship_clam,
+		[Description("Forest Follies (Run 'n Gun)"), ToolTip("Splits when level is finished'")]
+		level_platforming_1_1F,
+		[Description("Treetop Trouble (Run 'n Gun)"), ToolTip("Splits when level is finished")]
+		level_platforming_1_2F,
+		[Description("Funfair Fever (Run 'n Gun)"), ToolTip("Splits when level is finished")]
+		level_platforming_2_1F,
+		[Description("Funhouse Frazzle (Run 'n Gun)"), ToolTip("Splits when level is finished")]
+		level_platforming_2_2F,
+		[Description("Perilous Piers (Run 'n Gun)"), ToolTip("Splits when level is finished")]
+		level_platforming_3_1F,
+		[Description("Rugged Ridge (Run 'n Gun)"), ToolTip("Splits when level is finished")]
+		level_platforming_3_2F,
 
-		[Description("Domino - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_domino,
-		[Description("Card - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_card,
-		[Description("Chips - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_chips,
-		[Description("Cigar - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_cigar,
-		[Description("Booze - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_booze,
-		[Description("Roulette - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_roulette,
-		[Description("Pachinko - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_pachinko,
-		[Description("Rabbit - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_rabbit,
-		[Description("Light - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_light,
-		[Description("Eight Ball - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_eight_ball,
-		[Description("Flying Horse - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_flying_horse,
-		[Description("Flying Memory - Dice (Finished)"), ToolTip("Splits when level is finished")]
-		level_dice_palace_flying_memory,
+		[Description("Mausoleum I (Super)"), ToolTip("Splits when level is finished'")]
+		level_mausoleum_1,
+		[Description("Mausoleum II (Super)"), ToolTip("Splits when level is finished'")]
+		level_mausoleum_2,
+		[Description("Mausoleum III (Super)"), ToolTip("Splits when level is finished'")]
+		level_mausoleum_3,
 	}
 }

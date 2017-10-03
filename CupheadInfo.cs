@@ -46,7 +46,7 @@ namespace LiveSplit.Cuphead {
 			} else {
 				lblScene.Text = "Scene: " + Memory.SceneName() + (Memory.InGame() ? " (In Game)" : "");
 				lblInGame.Text = "Game: " + Memory.GameCompletion().ToString("0.0") + "%";
-				lblLevel.Text = "Level: " + Memory.LevelTime().ToString("0.00") + (Memory.Loading() ? " (Loading)" : "") + (Memory.LevelWon() ? " (Won)" : "") + (Memory.LevelEnding() ? " (Ending)" : "");
+				lblLevel.Text = "Level: " + Memory.LevelMode().ToString() + " - " + Memory.LevelTime().ToString("0.00") + (Memory.Loading() ? " (Loading)" : "") + (Memory.LevelWon() ? " (Won)" : "") + (Memory.LevelEnding() ? " (Ending)" : "");
 				lblDeaths.Text = "Coins: " + Memory.Coins() + " Deaths: " + Memory.Deaths();
 				lblDetail.Text = Memory.CurrentEnemies();
 			}

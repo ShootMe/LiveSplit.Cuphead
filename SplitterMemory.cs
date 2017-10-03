@@ -42,14 +42,15 @@ namespace LiveSplit.Cuphead {
 			StringBuilder sb = new StringBuilder();
 			float health = Program.Read<float>(level, 0xc);
 			float damage = Program.Read<float>(level, 0x10);
-			sb.Append("HP: ").Append(health - damage).Append(" / ").AppendLine(health.ToString());
+			sb.Append("HP: ").Append((health - damage).ToString("0.00")).Append(" / ").AppendLine(health.ToString());
 
-			float completion = 1f - damage / health;
 			level = (IntPtr)Level.Read<uint>(Program, -0x20, 0x58, 0x8);
 			int size = Program.Read<int>(level, 0xc);
 			for (int i = 0; i < size; i++) {
 				float trigger = Program.Read<float>(level, 0x8, 0x10 + (i * 4), 0xc);
-				sb.Append("Stage: ").Append(Program.Read((IntPtr)Program.Read<uint>(level, 0x8, 0x10 + (i * 4), 0x8))).Append(" at ").AppendLine((health * trigger).ToString("0"));
+				if (health * trigger < health - damage) {
+					sb.Append("Stage: ").Append(Program.Read((IntPtr)Program.Read<uint>(level, 0x8, 0x10 + (i * 4), 0x8))).Append(" at ").AppendLine((health * trigger).ToString("0"));
+				}
 			}
 
 			return sb.ToString();
@@ -58,13 +59,23 @@ namespace LiveSplit.Cuphead {
 			//Level.Current.LevelTime
 			return Level.Read<float>(Program, -0x20, 0xa4);
 		}
+		public Mode LevelMode() {
+			//Level.Current.Mode
+			if (Level.Read<uint>(Program, -0x20) != 0) {
+				return (Mode)Level.Read<int>(Program, -0x20, 0x98);
+			}
+			return Mode.None;
+		}
 		public bool LevelEnding() {
 			//Level.Current.Ending
 			return Level.Read<bool>(Program, -0x20, 0xa8);
 		}
 		public bool LevelWon() {
-			//Level.Won
-			return Level.Read<bool>(Program, -0x17);
+			if (Level.Read<uint>(Program, -0x20) != 0) {
+				//Level.Won
+				return Level.Read<bool>(Program, -0x17);
+			}
+			return false;
 		}
 		public int Deaths() {
 			IntPtr save = CurrentSave();
@@ -83,6 +94,22 @@ namespace LiveSplit.Cuphead {
 				if (collected) { total++; }
 			}
 			return total;
+		}
+		public bool LevelComplete(Levels levelId) {
+			IntPtr save = CurrentSave();
+			//.levelDataManager.levelObjects
+			IntPtr lvls = (IntPtr)Program.Read<uint>(save, 0x20, 0x8);
+			int size = Program.Read<int>(lvls, 0xc);
+			lvls = (IntPtr)Program.Read<uint>(lvls, 0x8);
+			for (int i = 0; i < size; i++) {
+				IntPtr item = (IntPtr)Program.Read<uint>(lvls, 0x10 + (i * 4));
+				Levels level = (Levels)Program.Read<int>(item, 0x8);
+				bool completed = Program.Read<bool>(item, 0xc);
+				if (level == levelId) {
+					return completed;
+				}
+			}
+			return false;
 		}
 		public float GameCompletion() {
 			IntPtr save = CurrentSave();
@@ -163,7 +190,7 @@ namespace LiveSplit.Cuphead {
 			return (IntPtr)Program.Read<uint>(saves, 0x10 + (saveSlot * 4));
 		}
 		private IntPtr PlayerOne() {
-			//PlayerManager.
+			//PlayerManager.players[PlayerId.PlayerOne]
 			IntPtr players = (IntPtr)PlayerManager.Read<uint>(Program, 0x20);
 			int count = Program.Read<int>(players, 0x20);
 			IntPtr keys = (IntPtr)Program.Read<uint>(players, 0x10);

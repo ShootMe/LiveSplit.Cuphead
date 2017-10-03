@@ -51,7 +51,7 @@
 			this.lblInGame.Location = new System.Drawing.Point(16, 20);
 			this.lblInGame.Name = "lblInGame";
 			this.lblInGame.Size = new System.Drawing.Size(48, 16);
-			this.lblInGame.TabIndex = 1;
+			this.lblInGame.TabIndex = 2;
 			this.lblInGame.Text = "Game:";
 			// 
 			// lblScene
@@ -61,7 +61,7 @@
 			this.lblScene.Location = new System.Drawing.Point(8, 4);
 			this.lblScene.Name = "lblScene";
 			this.lblScene.Size = new System.Drawing.Size(56, 16);
-			this.lblScene.TabIndex = 2;
+			this.lblScene.TabIndex = 1;
 			this.lblScene.Text = "Scene:";
 			// 
 			// lblInfo
@@ -71,7 +71,7 @@
 			this.lblInfo.Location = new System.Drawing.Point(16, 68);
 			this.lblInfo.Name = "lblInfo";
 			this.lblInfo.Size = new System.Drawing.Size(48, 16);
-			this.lblInfo.TabIndex = 3;
+			this.lblInfo.TabIndex = 5;
 			this.lblInfo.Text = "Info:";
 			// 
 			// lblLevel
@@ -81,7 +81,7 @@
 			this.lblLevel.Location = new System.Drawing.Point(8, 36);
 			this.lblLevel.Name = "lblLevel";
 			this.lblLevel.Size = new System.Drawing.Size(56, 16);
-			this.lblLevel.TabIndex = 4;
+			this.lblLevel.TabIndex = 3;
 			this.lblLevel.Text = "Level:";
 			// 
 			// lblDeaths
@@ -91,7 +91,7 @@
 			this.lblDeaths.Location = new System.Drawing.Point(8, 52);
 			this.lblDeaths.Name = "lblDeaths";
 			this.lblDeaths.Size = new System.Drawing.Size(56, 16);
-			this.lblDeaths.TabIndex = 5;
+			this.lblDeaths.TabIndex = 4;
 			this.lblDeaths.Text = "Coins:";
 			// 
 			// lblDetail
@@ -109,16 +109,16 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(492, 180);
+			this.Controls.Add(this.lblNote);
 			this.Controls.Add(this.lblDetail);
 			this.Controls.Add(this.lblDeaths);
 			this.Controls.Add(this.lblLevel);
 			this.Controls.Add(this.lblInfo);
 			this.Controls.Add(this.lblScene);
 			this.Controls.Add(this.lblInGame);
-			this.Controls.Add(this.lblNote);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
+			this.MinimumSize = new System.Drawing.Size(500, 200);
 			this.Name = "CupheadInfo";
 			this.Text = "Cuphead Info";
 			this.ResumeLayout(false);
