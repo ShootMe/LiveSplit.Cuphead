@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.0.8">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added split when first entering the King Dice fight room. </change>
+			<change> Added split when you choose to join the Devil and cutscene plays. </change>
+		</changelog>
+	</update>
 	<update version="1.0.7">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>

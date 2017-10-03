@@ -81,21 +81,13 @@ namespace LiveSplit.Cuphead {
 				SplitName split = currentSplit + 1 < settings.Splits.Count ? settings.Splits[currentSplit + 1] : SplitName.EndGame;
 				switch (split) {
 					case SplitName.StartGame: shouldSplit = inGame && loading && sceneName == "scene_cutscene_intro"; break;
-					case SplitName.EndGame: shouldSplit = sceneName == "scene_cutscene_credits"; break;
-					case SplitName.EnterLevel:
-						if (state == 0 && lastLevelTime == 0 && levelTime == 0) {
-							state++;
-						} else if (state == 1) {
-							shouldSplit = !loading && levelTime > 0;
-						}
-						break;
-					case SplitName.EndLevel: shouldSplit = levelTime > 0 && ending; break;
+
 					case SplitName.Shop: shouldSplit = sceneName == "scene_shop"; break;
 					case SplitName.map_world_1: shouldSplit = sceneName == "scene_map_world_1"; break;
 					case SplitName.map_world_2: shouldSplit = sceneName == "scene_map_world_2"; break;
 					case SplitName.map_world_3: shouldSplit = sceneName == "scene_map_world_3"; break;
 					case SplitName.map_world_4: shouldSplit = sceneName == "scene_map_world_4"; break;
-					
+
 					case SplitName.level_tutorial: shouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
 
 					case SplitName.level_veggies: shouldSplit = mem.LevelComplete(Levels.Veggies); break;
@@ -127,8 +119,21 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_platforming_3_2F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_3_2); break;
 					case SplitName.level_mausoleum_3: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Hard && ending; break;
 
+					case SplitName.level_dice_palace_enter: shouldSplit = sceneName == "scene_level_dice_palace_main"; break;
 					case SplitName.level_dice_palace_main: shouldSplit = mem.LevelComplete(Levels.DicePalaceMain); break;
 					case SplitName.level_devil: shouldSplit = mem.LevelComplete(Levels.Devil); break;
+
+					case SplitName.cutscene_devil: shouldSplit = sceneName == "scene_cutscene_devil"; break;
+					case SplitName.EndGame: shouldSplit = sceneName == "scene_cutscene_credits"; break;
+
+					case SplitName.EnterLevel:
+						if (state == 0 && lastLevelTime == 0 && levelTime == 0) {
+							state++;
+						} else if (state == 1) {
+							shouldSplit = !loading && levelTime > 0;
+						}
+						break;
+					case SplitName.EndLevel: shouldSplit = levelTime > 0 && ending; break;
 				}
 			}
 
@@ -288,25 +293,19 @@ namespace LiveSplit.Cuphead {
 
 		[Description("Start Game (Select Save)"), ToolTip("Splits when you select a new save slot")]
 		StartGame,
-		[Description("End Game (Credits)"), ToolTip("Splits when entering the credits")]
-		EndGame,
-		[Description("Enter Level (IL)"), ToolTip("Splits when entering any level")]
-		EnterLevel,
-		[Description("End Level (IL)"), ToolTip("Splits when ending any level")]
-		EndLevel,
 
 		[Description("Shop (Enter Scene)"), ToolTip("Splits when current scene is 'Shop'")]
 		Shop,
-		[Description("World 1 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 1'")]
+		[Description("Inkwell Isle 1 (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle I")]
 		map_world_1,
-		[Description("World 2 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 2'")]
+		[Description("Inkwell Isle 2 (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle II")]
 		map_world_2,
-		[Description("World 3 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 3'")]
+		[Description("Inkwell Isle 3 (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle III")]
 		map_world_3,
-		[Description("World 4 (Enter Scene)"), ToolTip("Splits when current scene is 'Map World 4'")]
+		[Description("Inkwell Hell (Enter Scene)"), ToolTip("Splits when first entering Inkwell Hell")]
 		map_world_4,
-		
-		[Description("Tutorial (Level)"), ToolTip("Splits when leaving scene 'Tutorial'")]
+
+		[Description("Tutorial (Level)"), ToolTip("Splits when leaving the Tutorial level")]
 		level_tutorial,
 
 		[Description("The Root Pack (Boss)"), ToolTip("Splits when level is finished")]
@@ -346,10 +345,17 @@ namespace LiveSplit.Cuphead {
 		[Description("Phantom Express (Boss)"), ToolTip("Splits when level is finished")]
 		level_train,
 
-		[Description("King Dice (Boss)"), ToolTip("Splits when all mini boss dice levels are complete")]
+		[Description("King Dice (Enter Scene)"), ToolTip("Splits when first entering the fight with King Dice")]
+		level_dice_palace_enter,
+		[Description("King Dice (Boss)"), ToolTip("Splits when you beat King Dice")]
 		level_dice_palace_main,
 		[Description("Devil (Boss)"), ToolTip("Splits when level is finished")]
 		level_devil,
+
+		[Description("Join The Devil (Cutscene)"), ToolTip("Splits after choosing to join the Devil and cutscene plays")]
+		cutscene_devil,
+		[Description("End Game (Credits)"), ToolTip("Splits when entering the credits")]
+		EndGame,
 
 		[Description("Forest Follies (Run 'n Gun)"), ToolTip("Splits when level is finished'")]
 		level_platforming_1_1F,
@@ -370,5 +376,10 @@ namespace LiveSplit.Cuphead {
 		level_mausoleum_2,
 		[Description("Mausoleum III (Super)"), ToolTip("Splits when level is finished'")]
 		level_mausoleum_3,
+
+		[Description("Enter Level (IL)"), ToolTip("Splits when entering any level")]
+		EnterLevel,
+		[Description("End Level (IL)"), ToolTip("Splits when ending any level")]
+		EndLevel,
 	}
 }
