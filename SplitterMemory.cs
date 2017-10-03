@@ -22,8 +22,7 @@ namespace LiveSplit.Cuphead {
 			return PlayerData.Read<bool>(Program, 0x0);
 		}
 		public bool Loading() {
-			//SceneLoader.currentlyLoading
-			//return SceneLoader.Read<bool>(Program, 0x10);
+			//SceneLoader.doneAsyncLoading
 			return !SceneLoader.Read<bool>(Program, 0x0, 0x3c);
 		}
 		public string SceneName() {
@@ -35,7 +34,7 @@ namespace LiveSplit.Cuphead {
 			return (Levels)Level.Read<int>(Program, 0x0);
 		}
 		public string CurrentEnemies() {
-			//Level.Current
+			//Level.Current.timeline
 			IntPtr level = (IntPtr)Level.Read<uint>(Program, -0x20, 0x58);
 			if (level == IntPtr.Zero) { return string.Empty; }
 
@@ -43,6 +42,26 @@ namespace LiveSplit.Cuphead {
 			float health = Program.Read<float>(level, 0xc);
 			float damage = Program.Read<float>(level, 0x10);
 			sb.Append("HP: ").Append((health - damage).ToString("0.00")).Append(" / ").AppendLine(health.ToString());
+
+			Levels current = CurrentLevel();
+			if (current == Levels.Robot) {
+				IntPtr body = (IntPtr)Level.Read<uint>(Program, -0x20, 0xc8);
+				float hp = Program.Read<float>(body, 0x5c, 0x3c, 0x10);
+				StringBuilder parts = new StringBuilder();
+				if (hp > 1) { parts.Append("Antenna: ").Append(hp.ToString("0.00")).Append(' '); }
+
+				hp = Program.Read<float>(body, 0x60, 0x3c, 0x10);
+				if (hp > 1) { parts.Append("Chest: ").Append(hp.ToString("0.00")).Append(' '); }
+
+				hp = Program.Read<float>(body, 0x64, 0x3c, 0x10);
+				if (hp > 1) { parts.Append("Hatch: ").Append(hp.ToString("0.00")); }
+
+				hp = Program.Read<float>(body, 0x60, 0x3c, 0x14);
+				if (hp > 1 && parts.Length == 0) { parts.Append("Heart: ").Append(hp.ToString("0.00")); }
+				if (parts.Length > 0) {
+					sb.AppendLine(parts.ToString());
+				}
+			}
 
 			level = (IntPtr)Level.Read<uint>(Program, -0x20, 0x58, 0x8);
 			int size = Program.Read<int>(level, 0xc);

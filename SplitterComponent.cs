@@ -77,7 +77,7 @@ namespace LiveSplit.Cuphead {
 			bool loading = mem.Loading();
 			bool ending = mem.LevelEnding() && mem.LevelWon();
 
-			if (currentSplit < Model.CurrentState.Run.Count) {
+			if (currentSplit < Model.CurrentState.Run.Count && settings.Splits.Count > 0) {
 				SplitName split = currentSplit + 1 < settings.Splits.Count ? settings.Splits[currentSplit + 1] : SplitName.EndGame;
 				switch (split) {
 					case SplitName.StartGame: shouldSplit = inGame && loading && sceneName == "scene_cutscene_intro"; break;
@@ -348,7 +348,7 @@ namespace LiveSplit.Cuphead {
 
 		[Description("King Dice (Boss)"), ToolTip("Splits when all mini boss dice levels are complete")]
 		level_dice_palace_main,
-		[Description("Devil (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Devil (Boss)"), ToolTip("Splits when level is finished")]
 		level_devil,
 
 		[Description("Forest Follies (Run 'n Gun)"), ToolTip("Splits when level is finished'")]
