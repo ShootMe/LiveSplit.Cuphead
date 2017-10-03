@@ -98,37 +98,37 @@ namespace LiveSplit.Cuphead {
 					
 					case SplitName.level_tutorial: shouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
 
-					case SplitName.level_veggies: shouldSplit = sceneName == "scene_level_veggies" && ending; break;
-					case SplitName.level_slime: shouldSplit = sceneName == "scene_level_slime" && ending; break;
-					case SplitName.level_flower: shouldSplit = sceneName == "scene_level_flower" && ending; break;
-					case SplitName.level_frogs: shouldSplit = sceneName == "scene_level_frogs" && ending; break;
-					case SplitName.level_flying_blimp: shouldSplit = sceneName == "scene_level_flying_blimp" && ending; break;
-					case SplitName.level_platforming_1_1F: shouldSplit = sceneName == "scene_level_platforming_1_1F" && ending; break;
-					case SplitName.level_platforming_1_2F: shouldSplit = sceneName == "scene_level_platforming_1_2F" && ending; break;
+					case SplitName.level_veggies: shouldSplit = mem.LevelComplete(Levels.Veggies); break;
+					case SplitName.level_slime: shouldSplit = mem.LevelComplete(Levels.Slime); break;
+					case SplitName.level_flower: shouldSplit = mem.LevelComplete(Levels.Flower); break;
+					case SplitName.level_frogs: shouldSplit = mem.LevelComplete(Levels.Frogs); break;
+					case SplitName.level_flying_blimp: shouldSplit = mem.LevelComplete(Levels.FlyingBlimp); break;
+					case SplitName.level_platforming_1_1F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_1_1); break;
+					case SplitName.level_platforming_1_2F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_1_2); break;
 					case SplitName.level_mausoleum_1: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Easy && ending; break;
 
-					case SplitName.level_baroness: shouldSplit = sceneName == "scene_level_baroness" && ending; break;
-					case SplitName.level_clown: shouldSplit = sceneName == "scene_level_clown" && ending; break;
-					case SplitName.level_dragon: shouldSplit = sceneName == "scene_level_dragon" && ending; break;
-					case SplitName.level_flying_genie: shouldSplit = sceneName == "scene_level_flying_genie" && ending; break;
-					case SplitName.level_flying_bird: shouldSplit = sceneName == "scene_level_flying_bird" && ending; break;
-					case SplitName.level_platforming_2_1F: shouldSplit = sceneName == "scene_level_platforming_2_1F" && ending; break;
-					case SplitName.level_platforming_2_2F: shouldSplit = sceneName == "scene_level_platforming_2_2F" && ending; break;
+					case SplitName.level_baroness: shouldSplit = mem.LevelComplete(Levels.Baroness); break;
+					case SplitName.level_clown: shouldSplit = mem.LevelComplete(Levels.Clown); break;
+					case SplitName.level_dragon: shouldSplit = mem.LevelComplete(Levels.Dragon); break;
+					case SplitName.level_flying_genie: shouldSplit = mem.LevelComplete(Levels.FlyingGenie); break;
+					case SplitName.level_flying_bird: shouldSplit = mem.LevelComplete(Levels.FlyingBird); break;
+					case SplitName.level_platforming_2_1F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_2_1); break;
+					case SplitName.level_platforming_2_2F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_2_2); break;
 					case SplitName.level_mausoleum_2: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Normal && ending; break;
 
-					case SplitName.level_bee: shouldSplit = sceneName == "scene_level_bee" && ending; break;
-					case SplitName.level_pirate: shouldSplit = sceneName == "scene_level_pirate" && ending; break;
-					case SplitName.level_sally_stage_play: shouldSplit = sceneName == "scene_level_sally_stage_play" && ending; break;
-					case SplitName.level_mouse: shouldSplit = sceneName == "scene_level_mouse" && ending; break;
-					case SplitName.level_robot: shouldSplit = sceneName == "scene_level_robot" && ending; break;
-					case SplitName.level_train: shouldSplit = sceneName == "scene_level_train" && ending; break;
-					case SplitName.level_flying_mermaid: shouldSplit = sceneName == "scene_level_flying_mermaid" && ending; break;
-					case SplitName.level_platforming_3_1F: shouldSplit = sceneName == "scene_level_platforming_3_1F" && ending; break;
-					case SplitName.level_platforming_3_2F: shouldSplit = sceneName == "scene_level_platforming_3_2F" && ending; break;
+					case SplitName.level_bee: shouldSplit = mem.LevelComplete(Levels.Bee); break;
+					case SplitName.level_pirate: shouldSplit = mem.LevelComplete(Levels.Pirate); break;
+					case SplitName.level_sally_stage_play: shouldSplit = mem.LevelComplete(Levels.SallyStagePlay); break;
+					case SplitName.level_mouse: shouldSplit = mem.LevelComplete(Levels.Mouse); break;
+					case SplitName.level_robot: shouldSplit = mem.LevelComplete(Levels.Robot); break;
+					case SplitName.level_train: shouldSplit = mem.LevelComplete(Levels.Train); break;
+					case SplitName.level_flying_mermaid: shouldSplit = mem.LevelComplete(Levels.FlyingMermaid); break;
+					case SplitName.level_platforming_3_1F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_3_1); break;
+					case SplitName.level_platforming_3_2F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_3_2); break;
 					case SplitName.level_mausoleum_3: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Hard && ending; break;
 
-					case SplitName.level_dice_palace_main: shouldSplit = sceneName == "scene_level_dice_palace_main" && mem.LevelComplete(Levels.DicePalaceMain); break;
-					case SplitName.level_devil: shouldSplit = sceneName == "scene_level_devil" && ending; break;
+					case SplitName.level_dice_palace_main: shouldSplit = mem.LevelComplete(Levels.DicePalaceMain); break;
+					case SplitName.level_devil: shouldSplit = mem.LevelComplete(Levels.Devil); break;
 				}
 			}
 
