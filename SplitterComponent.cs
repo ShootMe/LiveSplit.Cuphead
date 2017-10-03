@@ -23,19 +23,25 @@ namespace LiveSplit.Cuphead {
 		internal static string[] keys = { "CurrentSplit", "State", "InGame", "Scene", "LevelEnding", "LevelWon" };
 		private SplitterMemory mem;
 		private int currentSplit = -1, state = 0, lastLogCheck = 0;
-		private bool hasLog = false, lastInGame, lastLoading;
+		private bool hasLog = false;
 		private Dictionary<string, string> currentValues = new Dictionary<string, string>();
 		private SplitterSettings settings;
+#if !Info
+		private bool lastInGame, lastLoading;
 		private string lastSceneName;
 		private float lastLevelTime;
 
 		public SplitterComponent(LiveSplitState state) {
+#else
+		public SplitterComponent() {
+#endif
 			mem = new SplitterMemory();
 			settings = new SplitterSettings();
 			foreach (string key in keys) {
 				currentValues[key] = "";
 			}
 
+#if !Info
 			if (state != null) {
 				Model = new TimerModel() { CurrentState = state };
 				Model.InitializeGameTime();
@@ -48,6 +54,7 @@ namespace LiveSplit.Cuphead {
 				state.OnUndoSplit += OnUndoSplit;
 				state.OnSkipSplit += OnSkipSplit;
 			}
+#endif
 		}
 
 		public void GetValues() {
@@ -327,9 +334,9 @@ namespace LiveSplit.Cuphead {
 		[Description("Tutorial (Finished)"), ToolTip("Splits when leaving scene 'Tutorial'")]
 		level_tutorial,
 
-		[Description("Veggies (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("The Root Pack (Finished)"), ToolTip("Splits when level is finished")]
 		level_veggies,
-		[Description("Slime (Finished)"), ToolTip("Splits when level is finished")]
+		[Description("Goopy Le Grande (Finished)"), ToolTip("Splits when level is finished")]
 		level_slime,
 		[Description("Flower (Finished)"), ToolTip("Splits when level is finished")]
 		level_flower,
@@ -364,7 +371,7 @@ namespace LiveSplit.Cuphead {
 		[Description("Mermaid - Flying (Finished)"), ToolTip("Splits when level is finished")]
 		level_flying_mermaid,
 
-		[Description("Platforming 1-1 (Finished)"), ToolTip("Splits when level is finished'")]
+		[Description("Run 'n Gun 1-1 (Finished)"), ToolTip("Splits when level is finished'")]
 		level_platforming_1_1F,
 		[Description("Platforming 1-2 (Finished)"), ToolTip("Splits when level is finished")]
 		level_platforming_1_2F,
