@@ -119,7 +119,7 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_platforming_3_2F: shouldSplit = mem.LevelComplete(Levels.Platforming_Level_3_2); break;
 					case SplitName.level_mausoleum_3: shouldSplit = sceneName == "scene_level_mausoleum" && mem.LevelMode() == Mode.Hard && ending; break;
 
-					case SplitName.level_dice_palace_enter: shouldSplit = sceneName == "scene_level_dice_palace_main"; break;
+					case SplitName.level_dice_palace_enter: shouldSplit = sceneName == "scene_cutscene_kingdice"; break;
 					case SplitName.level_dice_palace_main: shouldSplit = mem.LevelComplete(Levels.DicePalaceMain); break;
 					case SplitName.level_devil: shouldSplit = mem.LevelComplete(Levels.Devil); break;
 
@@ -345,7 +345,7 @@ namespace LiveSplit.Cuphead {
 		[Description("Phantom Express (Boss)"), ToolTip("Splits when level is finished")]
 		level_train,
 
-		[Description("King Dice (Enter Scene)"), ToolTip("Splits when first entering the fight with King Dice")]
+		[Description("King Dice (Contract Cutscene)"), ToolTip("Splits when you get the cutscene trying to enter the King Dice fight without all contracts")]
 		level_dice_palace_enter,
 		[Description("King Dice (Boss)"), ToolTip("Splits when you beat King Dice")]
 		level_dice_palace_main,

@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.0.9">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added split for when trying to enter King Dice's fight without all contracts </change>
+		</changelog>
+	</update>
 	<update version="1.0.8">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
@@ -14,9 +22,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Fix ending split if no splits were setup
-			</change>
+			<change> Fix ending split if no splits were setup </change>
 		</changelog>
 	</update>
 	<update version="1.0.6">
@@ -24,9 +30,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Fix Run n Gun levels not splitting
-			</change>
+			<change> Fix Run n Gun levels not splitting </change>
 		</changelog>
 	</update>
 	<update version="1.0.5">
@@ -34,9 +38,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Finished updating all split descriptions
-			</change>
+			<change> Finished updating all split descriptions </change>
 		</changelog>
 	</update>
 	<update version="1.0.4">
@@ -44,9 +46,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Changed load remover to be more accurate and updated split descriptions
-			</change>
+			<change> Changed load remover to be more accurate and updated split descriptions </change>
 		</changelog>
 	</update>
 	<update version="1.0.3">
@@ -54,9 +54,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Updated descriptions
-			</change>
+			<change> Updated descriptions </change>
 		</changelog>
 	</update>
 	<update version="1.0.2">
@@ -64,9 +62,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Added logic to remove duplicate autosplitters
-			</change>
+			<change> Added logic to remove duplicate autosplitters </change>
 		</changelog>
 	</update>
 	<update version="1.0.1">
@@ -74,9 +70,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Removed default splits if you just want to use as load remover
-			</change>
+			<change> Removed default splits if you just want to use as load remover </change>
 		</changelog>
 	</update>
 	<update version="1.0.0">
@@ -84,9 +78,7 @@
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
 		</files>
 		<changelog>
-			<change>
-				Initial Release
-			</change>
+			<change> Initial Release </change>
 		</changelog>
 	</update>
 </updates>
