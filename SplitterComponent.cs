@@ -125,13 +125,7 @@ namespace LiveSplit.Cuphead {
 
 					case SplitName.EndGame: shouldSplit = sceneName == "scene_cutscene_credits"; break;
 
-					case SplitName.EnterLevel:
-						if (state == 0 && lastLevelTime == 0 && levelTime == 0) {
-							state++;
-						} else if (state == 1) {
-							shouldSplit = !loading && levelTime > 0;
-						}
-						break;
+					case SplitName.EnterLevel: shouldSplit = levelTime > 0 && levelTime < 0.5; break;
 					case SplitName.EndLevel: shouldSplit = levelTime > 0 && ending; break;
 				}
 			}
