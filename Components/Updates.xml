@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.1.0">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Removed Join The Devil split since it was not quite correct and I could not figure out anyway to fix it yet </change>
+		</changelog>
+	</update>
 	<update version="1.0.9">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>

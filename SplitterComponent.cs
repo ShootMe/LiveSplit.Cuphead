@@ -123,7 +123,6 @@ namespace LiveSplit.Cuphead {
 					case SplitName.level_dice_palace_main: shouldSplit = mem.LevelComplete(Levels.DicePalaceMain); break;
 					case SplitName.level_devil: shouldSplit = mem.LevelComplete(Levels.Devil); break;
 
-					case SplitName.cutscene_devil: shouldSplit = sceneName == "scene_cutscene_devil"; break;
 					case SplitName.EndGame: shouldSplit = sceneName == "scene_cutscene_credits"; break;
 
 					case SplitName.EnterLevel:
@@ -352,8 +351,6 @@ namespace LiveSplit.Cuphead {
 		[Description("Devil (Boss)"), ToolTip("Splits when level is finished")]
 		level_devil,
 
-		[Description("Join The Devil (Cutscene)"), ToolTip("Splits after choosing to join the Devil and cutscene plays")]
-		cutscene_devil,
 		[Description("End Game (Credits)"), ToolTip("Splits when entering the credits")]
 		EndGame,
 
