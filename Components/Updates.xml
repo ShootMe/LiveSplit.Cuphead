@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.1.2">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Added checks on boss splits so if you started the timer by accident and were on a completed file it won't just split all splits </change>
+		</changelog>
+	</update>
 	<update version="1.1.1">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
