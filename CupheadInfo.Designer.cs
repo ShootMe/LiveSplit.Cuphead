@@ -31,6 +31,7 @@
 			this.lblLevel = new System.Windows.Forms.Label();
 			this.lblDeaths = new System.Windows.Forms.Label();
 			this.lblDetail = new System.Windows.Forms.Label();
+			this.btnEnableDebug = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// lblNote
@@ -104,12 +105,23 @@
 			this.lblDetail.TabIndex = 6;
 			this.lblDetail.Text = "Detail";
 			// 
+			// btnEnableDebug
+			// 
+			this.btnEnableDebug.Location = new System.Drawing.Point(390, 4);
+			this.btnEnableDebug.Name = "btnEnableDebug";
+			this.btnEnableDebug.Size = new System.Drawing.Size(90, 23);
+			this.btnEnableDebug.TabIndex = 7;
+			this.btnEnableDebug.Text = "Enable Debug";
+			this.btnEnableDebug.UseVisualStyleBackColor = true;
+			this.btnEnableDebug.Click += new System.EventHandler(this.btnEnableDebug_Click);
+			// 
 			// CupheadInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(492, 180);
 			this.Controls.Add(this.lblNote);
+			this.Controls.Add(this.btnEnableDebug);
 			this.Controls.Add(this.lblDetail);
 			this.Controls.Add(this.lblDeaths);
 			this.Controls.Add(this.lblLevel);
@@ -134,5 +146,6 @@
 		private System.Windows.Forms.Label lblLevel;
 		private System.Windows.Forms.Label lblDeaths;
 		private System.Windows.Forms.Label lblDetail;
+		private System.Windows.Forms.Button btnEnableDebug;
 	}
 }

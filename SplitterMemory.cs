@@ -8,7 +8,7 @@ namespace LiveSplit.Cuphead {
 		private static ProgramPointer SceneLoader = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457|23"));
 		private static ProgramPointer Level = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "FF903C01000083C4108BD08B45F8B9????????89118B978C000000|15"));
 		private static ProgramPointer PlayerManager = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "558BEC83EC18B8????????C6000083EC0C68????????E8????????83C41083EC0C8945F050|7"));
-
+		private static ProgramPointer DebugConsole = new ProgramPointer(false, new ProgramSignature(PointerVersion.V1, "558BEC83EC08E8????????85C07509E8????????85C0740E83EC0CFF7508E8????????83C410C9C3|6"));
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
@@ -17,6 +17,15 @@ namespace LiveSplit.Cuphead {
 			lastHooked = DateTime.MinValue;
 		}
 
+		public byte[] ReadDebugCode() {
+			return DebugConsole.ReadBytes(Program, 18);
+		}
+		public void EnableDebugConsole() {
+			DebugConsole.Write(Program, new byte[] { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 });
+		}
+		public void DisableDebugConsole(byte[] oldDebugCode) {
+			DebugConsole.Write(Program, oldDebugCode);
+		}
 		public bool InGame() {
 			//PlayerData.inGame
 			return PlayerData.Read<bool>(Program, 0x0);
@@ -295,6 +304,10 @@ namespace LiveSplit.Cuphead {
 			GetPointer(program);
 			IntPtr ptr = (IntPtr)program.Read<uint>(Pointer, offsets);
 			return program.Read(ptr);
+		}
+		public byte[] ReadBytes(Process program, int length, params int[] offsets) {
+			GetPointer(program);
+			return program.Read(Pointer, length, offsets);
 		}
 		public void Write<T>(Process program, T value, params int[] offsets) where T : struct {
 			GetPointer(program);

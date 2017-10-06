@@ -5,6 +5,7 @@ using System.Windows.Forms;
 namespace LiveSplit.Cuphead {
 	public partial class CupheadInfo : Form {
 		public SplitterMemory Memory { get; set; }
+		private byte[] debugCode;
 		public static void Main(string[] args) {
 			try {
 				Application.EnableVisualStyles();
@@ -34,7 +35,11 @@ namespace LiveSplit.Cuphead {
 					}
 					if (lastHooked != hooked) {
 						lastHooked = hooked;
-						this.Invoke((Action)delegate () { lblNote.Visible = !hooked; });
+						this.Invoke((Action)delegate () {
+							lblNote.Visible = !hooked;
+							debugCode = null;
+							btnEnableDebug.Text = "Enable Debug";
+						});
 					}
 					Thread.Sleep(12);
 				} catch { }
@@ -44,11 +49,27 @@ namespace LiveSplit.Cuphead {
 			if (this.InvokeRequired) {
 				this.Invoke((Action)UpdateValues);
 			} else {
+				Memory.SetInvincible(true);
 				lblScene.Text = "Scene: " + Memory.SceneName() + (Memory.InGame() ? " (In Game)" : "");
 				lblInGame.Text = "Game: " + Memory.GameCompletion().ToString("0.0") + "%";
 				lblLevel.Text = "Level: " + Memory.LevelMode().ToString() + " - " + Memory.LevelTime().ToString("0.00") + (Memory.Loading() ? " (Loading)" : "") + (Memory.LevelWon() ? " (Won)" : "") + (Memory.LevelEnding() ? " (Ending)" : "");
 				lblDeaths.Text = "Coins: " + Memory.Coins() + " Deaths: " + Memory.Deaths();
 				lblDetail.Text = Memory.CurrentEnemies();
+			}
+		}
+		private void btnEnableDebug_Click(object sender, EventArgs e) {
+			if (btnEnableDebug.Text == "Enable Debug") {
+				btnEnableDebug.Text = "Disable Debug";
+				debugCode = Memory.ReadDebugCode();
+				if (debugCode[0] != 0) {
+					Memory.EnableDebugConsole();
+				} else {
+					btnEnableDebug.Text = "Enable Debug";
+					MessageBox.Show("Could not find Debug Console code.");
+				}
+			} else if (debugCode != null) {
+				btnEnableDebug.Text = "Enable Debug";
+				Memory.DisableDebugConsole(debugCode);
 			}
 		}
 	}
