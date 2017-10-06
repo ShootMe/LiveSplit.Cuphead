@@ -49,7 +49,6 @@ namespace LiveSplit.Cuphead {
 			if (this.InvokeRequired) {
 				this.Invoke((Action)UpdateValues);
 			} else {
-				Memory.SetInvincible(true);
 				lblScene.Text = "Scene: " + Memory.SceneName() + (Memory.InGame() ? " (In Game)" : "");
 				lblInGame.Text = "Game: " + Memory.GameCompletion().ToString("0.0") + "%";
 				lblLevel.Text = "Level: " + Memory.LevelMode().ToString() + " - " + Memory.LevelTime().ToString("0.00") + (Memory.Loading() ? " (Loading)" : "") + (Memory.LevelWon() ? " (Won)" : "") + (Memory.LevelEnding() ? " (Ending)" : "");
