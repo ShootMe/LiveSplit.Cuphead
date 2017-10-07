@@ -29,13 +29,15 @@
 			this.cboName = new System.Windows.Forms.ComboBox();
 			this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
 			this.picHandle = new System.Windows.Forms.PictureBox();
+			this.cboGrade = new System.Windows.Forms.ComboBox();
+			this.cboDifficulty = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.picHandle)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnRemove
 			// 
 			this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
-			this.btnRemove.Location = new System.Drawing.Point(274, 2);
+			this.btnRemove.Location = new System.Drawing.Point(399, 2);
 			this.btnRemove.Name = "btnRemove";
 			this.btnRemove.Size = new System.Drawing.Size(26, 23);
 			this.btnRemove.TabIndex = 4;
@@ -50,6 +52,7 @@
 			this.cboName.Size = new System.Drawing.Size(246, 21);
 			this.cboName.TabIndex = 0;
 			this.cboName.SelectedIndexChanged += new System.EventHandler(this.cboName_SelectedIndexChanged);
+			this.cboName.Validating += new System.ComponentModel.CancelEventHandler(this.cboName_Validating);
 			// 
 			// picHandle
 			// 
@@ -63,17 +66,49 @@
 			this.picHandle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picHandle_MouseDown);
 			this.picHandle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picHandle_MouseMove);
 			// 
-			// HollowKnightSplitSettings
+			// cboGrade
+			// 
+			this.cboGrade.FormattingEnabled = true;
+			this.cboGrade.Items.AddRange(new object[] {
+            "Any",
+            "A+",
+            "S",
+            "P"});
+			this.cboGrade.Location = new System.Drawing.Point(274, 3);
+			this.cboGrade.Name = "cboGrade";
+			this.cboGrade.Size = new System.Drawing.Size(51, 21);
+			this.cboGrade.TabIndex = 6;
+			this.cboGrade.SelectedIndexChanged += new System.EventHandler(this.cboGrade_SelectedIndexChanged);
+			this.cboGrade.Validating += new System.ComponentModel.CancelEventHandler(this.cboGrade_Validating);
+			// 
+			// cboDifficulty
+			// 
+			this.cboDifficulty.FormattingEnabled = true;
+			this.cboDifficulty.Items.AddRange(new object[] {
+            "Any",
+            "Simple",
+            "Regular",
+            "Expert"});
+			this.cboDifficulty.Location = new System.Drawing.Point(331, 3);
+			this.cboDifficulty.Name = "cboDifficulty";
+			this.cboDifficulty.Size = new System.Drawing.Size(62, 21);
+			this.cboDifficulty.TabIndex = 7;
+			this.cboDifficulty.SelectedIndexChanged += new System.EventHandler(this.cboDifficulty_SelectedIndexChanged);
+			this.cboDifficulty.Validating += new System.ComponentModel.CancelEventHandler(this.cboDifficulty_Validating);
+			// 
+			// SplitterSplitSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoSize = true;
+			this.Controls.Add(this.cboDifficulty);
+			this.Controls.Add(this.cboGrade);
 			this.Controls.Add(this.btnRemove);
 			this.Controls.Add(this.cboName);
 			this.Controls.Add(this.picHandle);
 			this.Margin = new System.Windows.Forms.Padding(0);
-			this.Name = "HollowKnightSplitSettings";
-			this.Size = new System.Drawing.Size(310, 28);
+			this.Name = "SplitterSplitSettings";
+			this.Size = new System.Drawing.Size(431, 28);
 			((System.ComponentModel.ISupportInitialize)(this.picHandle)).EndInit();
 			this.ResumeLayout(false);
 
@@ -84,5 +119,7 @@
 		public System.Windows.Forms.ComboBox cboName;
 		private System.Windows.Forms.ToolTip ToolTips;
 		private System.Windows.Forms.PictureBox picHandle;
+		public System.Windows.Forms.ComboBox cboGrade;
+		public System.Windows.Forms.ComboBox cboDifficulty;
 	}
 }

@@ -123,7 +123,7 @@ namespace LiveSplit.Cuphead {
 			}
 			return total;
 		}
-		public bool LevelComplete(Levels levelId) {
+		public bool LevelComplete(Levels levelId, Mode modeBeaten = Mode.Any, Grade gradeBeaten = Grade.Any) {
 			IntPtr save = CurrentSave();
 			//.levelDataManager.levelObjects
 			IntPtr lvls = (IntPtr)Program.Read<uint>(save, 0x20, 0x8);
@@ -132,9 +132,12 @@ namespace LiveSplit.Cuphead {
 			for (int i = 0; i < size; i++) {
 				IntPtr item = (IntPtr)Program.Read<uint>(lvls, 0x10 + (i * 4));
 				Levels level = (Levels)Program.Read<int>(item, 0x8);
-				bool completed = Program.Read<bool>(item, 0xc);
 				if (level == levelId) {
-					return completed;
+					bool completed = Program.Read<bool>(item, 0xc);
+					Grade grade = (Grade)Program.Read<int>(item, 0x10);
+					Mode difficulty = (Mode)Program.Read<int>(item, 0x14);
+
+					return completed && grade >= gradeBeaten && difficulty >= modeBeaten;
 				}
 			}
 			return false;

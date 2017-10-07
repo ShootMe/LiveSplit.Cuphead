@@ -7,18 +7,14 @@ using System.Windows.Forms;
 using System.Xml;
 namespace LiveSplit.Cuphead {
 	public partial class SplitterSettings : UserControl {
-		public List<SplitName> Splits { get; private set; }
+		public List<SplitInfo> Splits { get; private set; }
 		private bool isLoading;
 		public SplitterSettings() {
 			isLoading = true;
 			InitializeComponent();
 
-			Splits = new List<SplitName>();
+			Splits = new List<SplitInfo>();
 			isLoading = false;
-		}
-
-		public bool HasSplit(SplitName split) {
-			return Splits.Contains(split);
 		}
 
 		private void Settings_Load(object sender, EventArgs e) {
@@ -32,13 +28,12 @@ namespace LiveSplit.Cuphead {
 				flowMain.Controls.RemoveAt(i);
 			}
 
-			foreach (SplitName split in Splits) {
-				MemberInfo info = typeof(SplitName).GetMember(split.ToString())[0];
-				DescriptionAttribute description = (DescriptionAttribute)info.GetCustomAttributes(typeof(DescriptionAttribute), false)[0];
-
+			foreach (SplitInfo split in Splits) {
 				SplitterSplitSettings setting = new SplitterSplitSettings();
 				setting.cboName.DataSource = GetAvailableSplits();
-				setting.cboName.Text = description.Description;
+				setting.cboName.Text = SplitterSplitSettings.GetEnumDescription<SplitName>(split.Split);
+				setting.cboGrade.Text = SplitterSplitSettings.GetEnumDescription<Grade>(split.Grade);
+				setting.cboDifficulty.Text = SplitterSplitSettings.GetEnumDescription<Mode>(split.Difficulty);
 				AddHandlers(setting);
 
 				flowMain.Controls.Add(setting);
@@ -49,10 +44,14 @@ namespace LiveSplit.Cuphead {
 		}
 		private void AddHandlers(SplitterSplitSettings setting) {
 			setting.cboName.SelectedIndexChanged += new EventHandler(ControlChanged);
+			setting.cboGrade.SelectedIndexChanged += new EventHandler(ControlChanged);
+			setting.cboDifficulty.SelectedIndexChanged += new EventHandler(ControlChanged);
 			setting.btnRemove.Click += new EventHandler(btnRemove_Click);
 		}
 		private void RemoveHandlers(SplitterSplitSettings setting) {
 			setting.cboName.SelectedIndexChanged -= ControlChanged;
+			setting.cboGrade.SelectedIndexChanged -= ControlChanged;
+			setting.cboDifficulty.SelectedIndexChanged -= ControlChanged;
 			setting.btnRemove.Click -= btnRemove_Click;
 		}
 		public void btnRemove_Click(object sender, EventArgs e) {
@@ -77,8 +76,11 @@ namespace LiveSplit.Cuphead {
 				if (c is SplitterSplitSettings) {
 					SplitterSplitSettings setting = (SplitterSplitSettings)c;
 					if (!string.IsNullOrEmpty(setting.cboName.Text)) {
-						SplitName split = SplitterSplitSettings.GetSplitName(setting.cboName.Text);
-						Splits.Add(split);
+						Splits.Add(new SplitInfo() {
+							Split = SplitterSplitSettings.GetEnumValue<SplitName>(setting.cboName.Text),
+							Grade = SplitterSplitSettings.GetEnumValue<Grade>(setting.cboGrade.Text),
+							Difficulty = SplitterSplitSettings.GetEnumValue<Mode>(setting.cboDifficulty.Text)
+						});
 					}
 				}
 			}
@@ -89,7 +91,7 @@ namespace LiveSplit.Cuphead {
 			XmlElement xmlSplits = document.CreateElement("Splits");
 			xmlSettings.AppendChild(xmlSplits);
 
-			foreach (SplitName split in Splits) {
+			foreach (SplitInfo split in Splits) {
 				XmlElement xmlSplit = document.CreateElement("Split");
 				xmlSplit.InnerText = split.ToString();
 
@@ -103,8 +105,7 @@ namespace LiveSplit.Cuphead {
 			XmlNodeList splitNodes = settings.SelectNodes(".//Splits/Split");
 			foreach (XmlNode splitNode in splitNodes) {
 				string splitDescription = splitNode.InnerText;
-				SplitName split = SplitterSplitSettings.GetSplitName(splitDescription);
-				Splits.Add(split);
+				Splits.Add(new SplitInfo(splitDescription));
 			}
 		}
 		private void btnAddSplit_Click(object sender, EventArgs e) {
@@ -163,6 +164,39 @@ namespace LiveSplit.Cuphead {
 					destination.Invalidate();
 				}
 			}
+		}
+	}
+	public class SplitInfo {
+		public static SplitInfo EndGame = new SplitInfo() { Split = SplitName.EndGame, Grade = Grade.Any, Difficulty = Mode.Any };
+		public SplitName Split { get; set; }
+		public Grade Grade { get; set; }
+		public Mode Difficulty { get; set; }
+		public SplitInfo() { }
+		public SplitInfo(string copy) {
+			string[] info = copy.Split(',');
+			if (info.Length > 0) {
+				SplitName temp;
+				if (Enum.TryParse(info[0], out temp)) {
+					Split = temp;
+				}
+			}
+			Grade = Grade.Any;
+			if (info.Length > 1) {
+				Grade temp;
+				if (Enum.TryParse(info[1], out temp)) {
+					Grade = temp;
+				}
+			}
+			Difficulty = Mode.Any;
+			if (info.Length > 2) {
+				Mode temp;
+				if (Enum.TryParse(info[2], out temp)) {
+					Difficulty = temp;
+				}
+			}
+		}
+		public override string ToString() {
+			return Split.ToString() + "," + Grade.ToString() + "," + Difficulty.ToString();
 		}
 	}
 }
