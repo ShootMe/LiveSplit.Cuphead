@@ -86,7 +86,6 @@
 			this.cboDifficulty.FormattingEnabled = true;
 			this.cboDifficulty.Items.AddRange(new object[] {
             "Any",
-            "Simple",
             "Regular",
             "Expert"});
 			this.cboDifficulty.Location = new System.Drawing.Point(331, 3);

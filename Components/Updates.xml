@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<updates
+<updates>
 	<update version="1.1.4">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
