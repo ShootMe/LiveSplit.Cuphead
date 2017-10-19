@@ -110,6 +110,13 @@ namespace LiveSplit.Cuphead {
 			//.statictics.playerOne.deaths
 			return Program.Read<int>(save, 0x24, 0x8, 0x8);
 		}
+		public float SuperMeter() {
+			IntPtr playerOne = PlayerOne();
+			if (playerOne != IntPtr.Zero) {
+				return Program.Read<float>(playerOne, 0x34, 0x68);
+			}
+			return 0;
+		}
 		public int Coins() {
 			IntPtr save = CurrentSave();
 			//.coinManager.coins
