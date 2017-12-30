@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-
 namespace LiveSplit.Cuphead {
 	public partial class SplitterMemory {
-		private static ProgramPointer PlayerData = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "FF50C083C4108887D8000000B8????????C600000FB687D800000085C0742E8B473883780C02|13"));
-		private static ProgramPointer SceneLoader = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457|23"));
-		private static ProgramPointer Level = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "FF903C01000083C4108BD08B45F8B9????????89118B978C000000|15"));
-		private static ProgramPointer PlayerManager = new ProgramPointer(true, new ProgramSignature(PointerVersion.V1, "558BEC83EC18B8????????C6000083EC0C68????????E8????????83C41083EC0C8945F050|7"));
-		private static ProgramPointer DebugConsole = new ProgramPointer(false, new ProgramSignature(PointerVersion.V1, "558BEC83EC08E8????????85C07509E8????????85C0740E83EC0CFF7508E8????????83C410C9C3|6"));
+		private static ProgramPointer PlayerData = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "FF50C083C4108887D8000000B8????????C600000FB687D800000085C0742E8B473883780C02", 13));
+		private static ProgramPointer SceneLoader = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457", 23));
+		private static ProgramPointer Level = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "FF90????????83C4108BD08B45F8B9????????89118B978C", 15));
+		private static ProgramPointer PlayerManager = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "558BEC83EC18B8????????C6000083EC0C68????????E8????????83C41083EC0C8945F050", 7));
+		private static ProgramPointer DebugConsole = new ProgramPointer(AutoDeref.None, new ProgramSignature(PointerVersion.V1, "558BEC83EC08E8????????85C07509E8????????85C0740E83EC0CFF7508E8????????83C410C9C3", 6));
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
@@ -251,16 +250,16 @@ namespace LiveSplit.Cuphead {
 		}
 
 		public bool HookProcess() {
-			if ((Program == null || Program.HasExited) && DateTime.Now > lastHooked.AddSeconds(1)) {
+			if (DateTime.Now > lastHooked.AddSeconds(1) && (Program == null || Program.HasExited)) {
 				lastHooked = DateTime.Now;
 				Process[] processes = Process.GetProcessesByName("Cuphead");
 				Program = processes.Length == 0 ? null : processes[0];
-				IsHooked = true;
+				if (Program != null) {
+					MemoryReader.Update64Bit(Program);
+				}
 			}
 
-			if (Program == null || Program.HasExited) {
-				IsHooked = false;
-			}
+			IsHooked = Program != null;
 
 			return IsHooked;
 		}
@@ -273,12 +272,19 @@ namespace LiveSplit.Cuphead {
 	public enum PointerVersion {
 		V1
 	}
+	public enum AutoDeref {
+		None,
+		Single,
+		Double
+	}
 	public class ProgramSignature {
 		public PointerVersion Version { get; set; }
 		public string Signature { get; set; }
-		public ProgramSignature(PointerVersion version, string signature) {
+		public int Offset { get; set; }
+		public ProgramSignature(PointerVersion version, string signature, int offset) {
 			Version = version;
 			Signature = signature;
+			Offset = offset;
 		}
 		public override string ToString() {
 			return Version.ToString() + " - " + Signature;
@@ -291,15 +297,15 @@ namespace LiveSplit.Cuphead {
 		private int[] offsets;
 		public IntPtr Pointer { get; private set; }
 		public PointerVersion Version { get; private set; }
-		public bool AutoDeref { get; private set; }
+		public AutoDeref AutoDeref { get; private set; }
 
-		public ProgramPointer(bool autoDeref, params ProgramSignature[] signatures) {
+		public ProgramPointer(AutoDeref autoDeref, params ProgramSignature[] signatures) {
 			AutoDeref = autoDeref;
 			this.signatures = signatures;
 			lastID = -1;
 			lastTry = DateTime.MinValue;
 		}
-		public ProgramPointer(bool autoDeref, params int[] offsets) {
+		public ProgramPointer(AutoDeref autoDeref, params int[] offsets) {
 			AutoDeref = autoDeref;
 			this.offsets = offsets;
 			lastID = -1;
@@ -328,7 +334,7 @@ namespace LiveSplit.Cuphead {
 			program.Write(Pointer, value, offsets);
 		}
 		public IntPtr GetPointer(Process program) {
-			if ((program?.HasExited).GetValueOrDefault(true)) {
+			if (program == null) {
 				Pointer = IntPtr.Zero;
 				lastID = -1;
 				return Pointer;
@@ -342,8 +348,15 @@ namespace LiveSplit.Cuphead {
 
 				Pointer = GetVersionedFunctionPointer(program);
 				if (Pointer != IntPtr.Zero) {
-					if (AutoDeref) {
+					if (AutoDeref != AutoDeref.None) {
 						Pointer = (IntPtr)program.Read<uint>(Pointer);
+						if (AutoDeref == AutoDeref.Double) {
+							if (MemoryReader.is64Bit) {
+								Pointer = (IntPtr)program.Read<ulong>(Pointer);
+							} else {
+								Pointer = (IntPtr)program.Read<uint>(Pointer);
+							}
+						}
 					}
 				}
 			}
@@ -351,13 +364,17 @@ namespace LiveSplit.Cuphead {
 		}
 		private IntPtr GetVersionedFunctionPointer(Process program) {
 			if (signatures != null) {
+				MemorySearcher searcher = new MemorySearcher();
+				searcher.MemoryFilter = delegate (MemInfo info) {
+					return (info.State & 0x1000) != 0 && (info.Protect & 0x40) != 0 && (info.Protect & 0x100) == 0;
+				};
 				for (int i = 0; i < signatures.Length; i++) {
 					ProgramSignature signature = signatures[i];
 
-					IntPtr ptr = program.FindSignatures(signature.Signature)[0];
+					IntPtr ptr = searcher.FindSignature(program, signature.Signature);
 					if (ptr != IntPtr.Zero) {
 						Version = signature.Version;
-						return ptr;
+						return ptr + signature.Offset;
 					}
 				}
 			} else {
