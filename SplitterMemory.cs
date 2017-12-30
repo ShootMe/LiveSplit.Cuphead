@@ -318,8 +318,7 @@ namespace LiveSplit.Cuphead {
 		}
 		public string Read(Process program, params int[] offsets) {
 			GetPointer(program);
-			IntPtr ptr = (IntPtr)program.Read<uint>(Pointer, offsets);
-			return program.Read(ptr);
+			return program.Read((IntPtr)program.Read<uint>(Pointer, offsets));
 		}
 		public byte[] ReadBytes(Process program, int length, params int[] offsets) {
 			GetPointer(program);
