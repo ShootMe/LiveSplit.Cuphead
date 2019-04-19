@@ -5,7 +5,7 @@ namespace LiveSplit.Cuphead {
 	public partial class SplitterMemory {
 		private static ProgramPointer PlayerData = new ProgramPointer(AutoDeref.Single,
 			new ProgramSignature(PointerVersion.Steam115, "FF50C083C4108887D8000000B8????????C600000FB687D800000085C0742E8B473883780C02", 13),
-			new ProgramSignature(PointerVersion.Steam120, "83C41083EC0C6A00E8????????83C410E8????????E8????????8B4508C6403C00B8", 34)
+			new ProgramSignature(PointerVersion.Steam120, "83C41083EC0C50E8????????83C41083EC0C6A00E8????????83C410E8????????E8????????8B4508C6403C00B8", 46)
 		);
 		private static ProgramPointer SceneLoader = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.Steam115, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457", 23));
 		private static ProgramPointer Level = new ProgramPointer(AutoDeref.Single,
@@ -236,6 +236,9 @@ namespace LiveSplit.Cuphead {
 			return Program.Read<int>(save, 0xc, 0x8, 0xc, 0xc);
 		}
 		private IntPtr CurrentSave() {
+			if (PlayerData.Version == PointerVersion.Steam120 && Level.Version == PointerVersion.Steam115) {
+				PlayerData.ClearPointer(Program);
+			}
 			//PlayerData._saveFiles[PlayerData._CurrentSaveFileIndex]
 			IntPtr saves = (IntPtr)PlayerData.Read<uint>(Program, 0x3);
 			int saveSlot = PlayerData.Read<int>(Program, -0x5);
@@ -265,16 +268,17 @@ namespace LiveSplit.Cuphead {
 		}
 
 		public bool HookProcess() {
-			if (DateTime.Now > lastHooked.AddSeconds(1) && (Program == null || Program.HasExited)) {
+			IsHooked = Program != null && !Program.HasExited;
+			if (!IsHooked && DateTime.Now > lastHooked.AddSeconds(1)) {
 				lastHooked = DateTime.Now;
 				Process[] processes = Process.GetProcessesByName("Cuphead");
-				Program = processes.Length == 0 ? null : processes[0];
-				if (Program != null) {
+				Program = processes != null && processes.Length > 0 ? processes[0] : null;
+
+				if (Program != null && !Program.HasExited) {
 					MemoryReader.Update64Bit(Program);
+					IsHooked = true;
 				}
 			}
-
-			IsHooked = Program != null;
 
 			return IsHooked;
 		}
@@ -348,6 +352,10 @@ namespace LiveSplit.Cuphead {
 			GetPointer(program);
 			program.Write(Pointer, value, offsets);
 		}
+		public void ClearPointer(Process program) {
+			Pointer = IntPtr.Zero;
+			GetPointer(program);
+		}
 		public IntPtr GetPointer(Process program) {
 			if (program == null) {
 				Pointer = IntPtr.Zero;
@@ -388,6 +396,7 @@ namespace LiveSplit.Cuphead {
 
 					IntPtr ptr = searcher.FindSignature(program, signature.Signature);
 					if (ptr != IntPtr.Zero) {
+						//5.6.2 10718
 						Version = signature.Version;
 						return ptr + signature.Offset;
 					}
