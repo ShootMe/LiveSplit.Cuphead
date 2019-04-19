@@ -18,7 +18,7 @@ namespace LiveSplit.Cuphead {
 		public CupheadInfo() {
 			this.DoubleBuffered = true;
 			InitializeComponent();
-			Text = "Cuphead Info " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			Text = "Cuphead Info " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 			Memory = new SplitterMemory();
 			Thread t = new Thread(UpdateLoop);
 			t.IsBackground = true;
@@ -64,7 +64,7 @@ namespace LiveSplit.Cuphead {
 					Memory.EnableDebugConsole();
 				} else {
 					btnEnableDebug.Text = "Enable Debug";
-					MessageBox.Show("Could not find Debug Console code.");
+					MessageBox.Show("Could not find Debug Console code. Not available in 1.2");
 				}
 			} else if (debugCode != null) {
 				btnEnableDebug.Text = "Enable Debug";

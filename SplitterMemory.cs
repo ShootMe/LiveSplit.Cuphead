@@ -3,11 +3,17 @@ using System.Diagnostics;
 using System.Text;
 namespace LiveSplit.Cuphead {
 	public partial class SplitterMemory {
-		private static ProgramPointer PlayerData = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "FF50C083C4108887D8000000B8????????C600000FB687D800000085C0742E8B473883780C02", 13));
-		private static ProgramPointer SceneLoader = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457", 23));
-		private static ProgramPointer Level = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "FF90????????83C4108BD08B45F8B9????????89118B978C", 15));
-		private static ProgramPointer PlayerManager = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.V1, "558BEC83EC18B8????????C6000083EC0C68????????E8????????83C41083EC0C8945F050", 7));
-		private static ProgramPointer DebugConsole = new ProgramPointer(AutoDeref.None, new ProgramSignature(PointerVersion.V1, "558BEC83EC08E8????????85C07509E8????????85C0740E83EC0CFF7508E8????????83C410C9C3", 6));
+		private static ProgramPointer PlayerData = new ProgramPointer(AutoDeref.Single,
+			new ProgramSignature(PointerVersion.Steam115, "FF50C083C4108887D8000000B8????????C600000FB687D800000085C0742E8B473883780C02", 13),
+			new ProgramSignature(PointerVersion.Steam120, "83C41083EC0C6A00E8????????83C410E8????????E8????????8B4508C6403C00B8", 34)
+		);
+		private static ProgramPointer SceneLoader = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.Steam115, "558BEC5783EC048B7D0883EC0C57E8????????83C410B8????????8938D9EE83EC0883EC04D91C2457", 23));
+		private static ProgramPointer Level = new ProgramPointer(AutoDeref.Single,
+			new ProgramSignature(PointerVersion.Steam115, "FF90????????83C4108BD08B45F8B9????????89118B978C", 15),
+			new ProgramSignature(PointerVersion.Steam120, "8B461C8987AC00000083EC0C578B07909090FF90C000000083C4108BC8B8", 30)
+		);
+		private static ProgramPointer PlayerManager = new ProgramPointer(AutoDeref.Single, new ProgramSignature(PointerVersion.Steam115, "558BEC83EC18B8????????C6000083EC0C68????????E8????????83C41083EC0C8945F050", 7));
+		private static ProgramPointer DebugConsole = new ProgramPointer(AutoDeref.None, new ProgramSignature(PointerVersion.Steam115, "558BEC83EC08E8????????85C07509E8????????85C0740E83EC0CFF7508E8????????83C410C9C3", 6));
 		public Process Program { get; set; }
 		public bool IsHooked { get; set; } = false;
 		private DateTime lastHooked;
@@ -31,11 +37,13 @@ namespace LiveSplit.Cuphead {
 		}
 		public bool Loading() {
 			//SceneLoader.doneAsyncLoading
-			return !SceneLoader.Read<bool>(Program, 0x0, 0x3c);
+			int offset = PlayerData.Version == PointerVersion.Steam120 ? 0x40 : 0x3c;
+			return !SceneLoader.Read<bool>(Program, 0x0, offset);
 		}
 		public string SceneName() {
 			//SceneLoader.SceneName
-			return SceneLoader.Read(Program, 0x8);
+			int offset = PlayerData.Version == PointerVersion.Steam120 ? 0xc : 0x8;
+			return SceneLoader.ReadString(Program, offset);
 		}
 		public Levels CurrentLevel() {
 			//Level.PreviousLevel
@@ -53,30 +61,37 @@ namespace LiveSplit.Cuphead {
 
 			Levels current = CurrentLevel();
 			if (current == Levels.Robot) {
-				IntPtr body = (IntPtr)Level.Read<uint>(Program, -0x20, 0xc8);
-				float hp = Program.Read<float>(body, 0x5c, 0x3c, 0x10);
+				//((RobotLevel)level).Robot
+				int offset = Level.Version == PointerVersion.Steam120 ? 0xd8 : 0xc8;
+				IntPtr body = (IntPtr)Level.Read<uint>(Program, -0x20, offset);
+				offset = Level.Version == PointerVersion.Steam120 ? 0x58 : 0x5c;
+				float hp = Program.Read<float>(body, offset, 0x3c, 0x10);
 				StringBuilder parts = new StringBuilder();
 				if (hp > 1) { parts.Append("Antenna: ").Append(hp.ToString("0.00")).Append(' '); }
 
-				hp = Program.Read<float>(body, 0x60, 0x3c, 0x10);
+				offset = Level.Version == PointerVersion.Steam120 ? 0x5c : 0x60;
+				hp = Program.Read<float>(body, offset, 0x3c, 0x10);
 				if (hp > 1) { parts.Append("Chest: ").Append(hp.ToString("0.00")).Append(' '); }
 
-				hp = Program.Read<float>(body, 0x64, 0x3c, 0x10);
+				offset = Level.Version == PointerVersion.Steam120 ? 0x60 : 0x64;
+				hp = Program.Read<float>(body, offset, 0x3c, 0x10);
 				if (hp > 1) { parts.Append("Hatch: ").Append(hp.ToString("0.00")); }
 
-				hp = Program.Read<float>(body, 0x60, 0x3c, 0x14);
+				offset = Level.Version == PointerVersion.Steam120 ? 0x5c : 0x60;
+				hp = Program.Read<float>(body, offset, 0x3c, 0x14);
 				if (hp > 1 && parts.Length == 0) { parts.Append("Heart: ").Append(hp.ToString("0.00")); }
 				if (parts.Length > 0) {
 					sb.AppendLine(parts.ToString());
 				}
 			}
 
+			//Level.Current.Timeline.Events
 			level = (IntPtr)Level.Read<uint>(Program, -0x20, 0x58, 0x8);
 			int size = Program.Read<int>(level, 0xc);
 			for (int i = 0; i < size; i++) {
 				float trigger = Program.Read<float>(level, 0x8, 0x10 + (i * 4), 0xc);
 				if (health * trigger < health - damage) {
-					sb.Append("Stage: ").Append(Program.Read((IntPtr)Program.Read<uint>(level, 0x8, 0x10 + (i * 4), 0x8))).Append(" at ").AppendLine((health * trigger).ToString("0"));
+					sb.Append("Stage: ").Append(Program.ReadString((IntPtr)Program.Read<uint>(level, 0x8, 0x10 + (i * 4), 0x8))).Append(" at ").AppendLine((health * trigger).ToString("0"));
 				}
 			}
 
@@ -270,7 +285,8 @@ namespace LiveSplit.Cuphead {
 		}
 	}
 	public enum PointerVersion {
-		V1
+		Steam115,
+		Steam120
 	}
 	public enum AutoDeref {
 		None,
@@ -316,13 +332,13 @@ namespace LiveSplit.Cuphead {
 			GetPointer(program);
 			return program.Read<T>(Pointer, offsets);
 		}
-		public string Read(Process program, params int[] offsets) {
+		public string ReadString(Process program, params int[] offsets) {
 			GetPointer(program);
-			return program.Read((IntPtr)program.Read<uint>(Pointer, offsets));
+			return program.ReadString((IntPtr)program.Read<uint>(Pointer, offsets));
 		}
 		public byte[] ReadBytes(Process program, int length, params int[] offsets) {
 			GetPointer(program);
-			return program.Read(Pointer, length, offsets);
+			return program.ReadBytes(Pointer, length, offsets);
 		}
 		public void Write<T>(Process program, T value, params int[] offsets) where T : struct {
 			GetPointer(program);
