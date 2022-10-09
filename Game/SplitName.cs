@@ -17,9 +17,13 @@ namespace LiveSplit.Cuphead {
 		map_world_3,
 		[Description("Inkwell Hell (Enter Scene)"), ToolTip("Splits when first entering Inkwell Hell")]
 		map_world_4,
+		[Description("Inkwell Hell (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle DLC")]
+		map_world_DLC,
 
 		[Description("Tutorial (Level)"), ToolTip("Splits when leaving the Tutorial level")]
 		level_tutorial,
+		[Description("Chalice Tutorial (Level)"), ToolTip("Splits when leaving the Chalice Tutorial level")]
+		level_chalice_tutorial,
 
 		[Description("The Root Pack (Boss)"), ToolTip("Splits when level is finished")]
 		level_veggies,
@@ -58,6 +62,21 @@ namespace LiveSplit.Cuphead {
 		[Description("Phantom Express (Boss)"), ToolTip("Splits when level is finished")]
 		level_train,
 
+		[Description("Glumstone The Giant (Boss)"), ToolTip("Splits when level is finished")]
+		level_old_man,
+		[Description("Mortimer Freeze (Boss)"), ToolTip("Splits when level is finished")]
+		level_snow_cult,
+		[Description("The Howling Aces (Boss)"), ToolTip("Splits when level is finished")]
+		level_airplane,
+		[Description("Esther Winchester (Boss)"), ToolTip("Splits when level is finished")]
+		level_flying_cowboy,
+		[Description("Moonshine Mob (Boss)"), ToolTip("Splits when level is finished")]
+		level_rum_runners,
+		[Description("Chef Saltbaker (Boss)"), ToolTip("Splits when level is finished")]
+		level_saltbaker,
+		[Description("Demon and Angel (Boss)"), ToolTip("Splits when level is finished")]
+		level_graveyard,
+
 		[Description("King Dice (Contract Cutscene)"), ToolTip("Splits when you get the cutscene trying to enter the King Dice fight without all contracts")]
 		level_dice_palace_enter,
 		[Description("King Dice (Boss)"), ToolTip("Splits when you beat King Dice")]
@@ -87,6 +106,17 @@ namespace LiveSplit.Cuphead {
 		level_mausoleum_2,
 		[Description("Mausoleum III (Super)"), ToolTip("Splits when level is finished'")]
 		level_mausoleum_3,
+
+		[Description("Chess Pawns (Boss)"), ToolTip("Splits when level is finished")]
+		level_chess_pawn,
+		[Description("Chess Knight (Boss)"), ToolTip("Splits when level is finished")]
+		level_chess_knight,
+		[Description("Chess Bishop (Boss)"), ToolTip("Splits when level is finished")]
+		level_chess_bishop,
+		[Description("Chess Rook (Boss)"), ToolTip("Splits when level is finished")]
+		level_chess_rook,
+		[Description("Chess Queen (Boss)"), ToolTip("Splits when level is finished")]
+		level_chess_queen,
 
 		[Description("Enter Level (IL)"), ToolTip("Splits when entering any level")]
 		EnterLevel,
