@@ -98,7 +98,6 @@ namespace LiveSplit.Cuphead {
                 case SplitName.map_world_4: ShouldSplit = sceneName == "scene_map_world_4"; break;
                 case SplitName.map_world_DLC: ShouldSplit = sceneName == "scene_map_world_DLC"; break;
 
-
                 case SplitName.level_tutorial: ShouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
                 case SplitName.level_chalice_tutorial: ShouldSplit = lastSceneName == "scene_level_chalice_tutorial" && sceneName != "scene_level_chalice_tutorial"; break;
 
