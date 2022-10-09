@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.2.2">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Add functionality for DLC </change>
+		</changelog>
+	</update>
 	<update version="1.2.1">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>

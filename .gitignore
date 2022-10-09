@@ -2,7 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/LiveSplit.Cuphead/v15
+/.vs
 /bin
 /Components/LiveSplit.Cuphead.exe
 /obj

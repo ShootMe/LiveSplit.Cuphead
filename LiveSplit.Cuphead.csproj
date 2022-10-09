@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LiveSplit.Cuphead</RootNamespace>
     <AssemblyName>LiveSplit.Cuphead</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,28 +35,34 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>cuphead.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Info|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <OutputType>WinExe</OutputType>
     <DefineConstants>TRACE;Info</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LiveSplit.Core">
-      <HintPath>..\..\LiveSplit\LiveSplit.Core.dll</HintPath>
+      <HintPath>LiveSplit\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,43 +71,51 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="UpdateManager">
-      <HintPath>..\..\LiveSplit\UpdateManager.dll</HintPath>
+      <HintPath>LiveSplit\UpdateManager.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
-    <Compile Include="SplitterComponent.cs" />
-    <Compile Include="SplitterFactory.cs" />
-    <Compile Include="CupheadInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CupheadInfo.Designer.cs">
-      <DependentUpon>CupheadInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SplitterMemory.cs" />
-    <Compile Include="MemoryReader.cs" />
-    <Compile Include="SplitterSettings.cs">
+    <Compile Include="Game\SplitName.cs" />
+    <Compile Include="Game\Grade.cs" />
+    <Compile Include="Game\Levels.cs" />
+    <Compile Include="Game\LogicManager.cs" />
+    <Compile Include="Game\Mode.cs" />
+    <Compile Include="Game\PlayerId.cs" />
+    <Compile Include="Memory\AutoDeref.cs" />
+    <Compile Include="Memory\FindOffset.cs" />
+    <Compile Include="Memory\IFindPointer.cs" />
+    <Compile Include="Memory\MemInfo.cs" />
+    <Compile Include="Memory\MemorySearcher.cs" />
+    <Compile Include="Memory\Module64.cs" />
+    <Compile Include="Memory\ModuleInfo.cs" />
+    <Compile Include="Memory\PointerVersion.cs" />
+    <Compile Include="Memory\ProgramPointer.cs" />
+    <Compile Include="Memory\FindPointerSignature.cs" />
+    <Compile Include="Memory\WinAPI.cs" />
+    <Compile Include="UI\Component.cs" />
+    <Compile Include="UI\Factory.cs" />
+    <Compile Include="Game\LogManager.cs" />
+    <Compile Include="Game\MemoryManager.cs" />
+    <Compile Include="Memory\MemoryReader.cs" />
+    <Compile Include="UI\SplitterSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SplitterSettings.Designer.cs">
+    <Compile Include="UI\SplitterSettings.Designer.cs">
       <DependentUpon>SplitterSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="SplitterSplitSettings.cs">
+    <Compile Include="UI\SplitterSplitSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SplitterSplitSettings.Designer.cs">
+    <Compile Include="UI\SplitterSplitSettings.Designer.cs">
       <DependentUpon>SplitterSplitSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CupheadInfo.resx">
-      <DependentUpon>CupheadInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SplitterSettings.resx">
+    <EmbeddedResource Include="UI\SplitterSettings.resx">
       <DependentUpon>SplitterSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SplitterSplitSettings.resx">
+    <EmbeddedResource Include="UI\SplitterSplitSettings.resx">
       <DependentUpon>SplitterSplitSettings.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -109,7 +124,6 @@
     <Content Include="Components\Updates.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="cuphead.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
