@@ -79,14 +79,16 @@ namespace LiveSplit.Cuphead {
             ShouldSplit = false;
             Paused = Memory.Loading();
 
-            if (!updateValues && Paused) {
-                return;
-            }
-
             bool inGame = Memory.InGame();
             float levelTime = Memory.LevelTime();
             string sceneName = Memory.SceneName();
             bool ending = Memory.LevelEnding() && Memory.LevelWon();
+
+            ShouldReset = Settings.Splits.Count == 2 && levelTime == 0;
+
+            if (!updateValues && Paused) {
+                return;
+            }
 
             switch (split.Split) {
                 case SplitName.StartGame: ShouldSplit = inGame && Paused && sceneName == "scene_cutscene_intro"; break;
@@ -97,7 +99,6 @@ namespace LiveSplit.Cuphead {
                 case SplitName.map_world_3: ShouldSplit = sceneName == "scene_map_world_3"; break;
                 case SplitName.map_world_4: ShouldSplit = sceneName == "scene_map_world_4"; break;
                 case SplitName.map_world_DLC: ShouldSplit = sceneName == "scene_map_world_DLC"; break;
-
 
                 case SplitName.level_tutorial: ShouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
                 case SplitName.level_chalice_tutorial: ShouldSplit = lastSceneName == "scene_level_chalice_tutorial" && sceneName != "scene_level_chalice_tutorial"; break;
@@ -158,8 +159,6 @@ namespace LiveSplit.Cuphead {
                 lastSceneSeen = lastSceneName;
             }
             lastSceneName = sceneName;
-
-            ShouldReset = Settings.Splits.Count == 1 && Paused && levelTime == 0;
 
             if (Running && Paused) {
                 ShouldSplit = false;
