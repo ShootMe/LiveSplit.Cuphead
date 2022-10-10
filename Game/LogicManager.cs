@@ -74,6 +74,12 @@ namespace LiveSplit.Cuphead {
                     Increment();
                 }
             }
+            //if we've done all the splits, we should still check if we're in IL mode and if we should reset the timer
+            else
+            {
+                float levelTime = Memory.LevelTime();
+                ShouldReset = Settings.Splits.Count == 2 && levelTime == 0;
+            }
         }
         private void CheckSplit(SplitInfo split, bool updateValues) {
             ShouldSplit = false;
@@ -84,6 +90,7 @@ namespace LiveSplit.Cuphead {
             string sceneName = Memory.SceneName();
             bool ending = Memory.LevelEnding() && Memory.LevelWon();
 
+            //the reset condition should be checked here before that if statement below, because it will cause to exit this method under the reset conditions
             ShouldReset = Settings.Splits.Count == 2 && levelTime == 0;
 
             if (!updateValues && Paused) {
