@@ -79,14 +79,16 @@ namespace LiveSplit.Cuphead {
             ShouldSplit = false;
             Paused = Memory.Loading();
 
-            if (!updateValues && Paused) {
-                return;
-            }
-
             bool inGame = Memory.InGame();
             float levelTime = Memory.LevelTime();
             string sceneName = Memory.SceneName();
             bool ending = Memory.LevelEnding() && Memory.LevelWon();
+
+            ShouldReset = Settings.Splits.Count == 2 && levelTime == 0;
+
+            if (!updateValues && Paused) {
+                return;
+            }
 
             switch (split.Split) {
                 case SplitName.StartGame: ShouldSplit = inGame && Paused && sceneName == "scene_cutscene_intro"; break;
@@ -157,8 +159,6 @@ namespace LiveSplit.Cuphead {
                 lastSceneSeen = lastSceneName;
             }
             lastSceneName = sceneName;
-
-            ShouldReset = Settings.Splits.Count == 1 && Paused && levelTime == 0;
 
             if (Running && Paused) {
                 ShouldSplit = false;
