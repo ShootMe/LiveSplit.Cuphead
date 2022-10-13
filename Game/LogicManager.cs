@@ -148,7 +148,7 @@ namespace LiveSplit.Cuphead {
                 case SplitName.level_graveyard: ShouldSplit = InScene("scene_level_graveyard") && Memory.LevelComplete(Levels.Graveyard, split.Difficulty, split.Grade); break;
                 case SplitName.level_chess_pawn: ShouldSplit = InScene("scene_level_chess_pawn") && Memory.LevelComplete(Levels.ChessPawn, split.Difficulty, split.Grade); break;
                 case SplitName.level_chess_knight: ShouldSplit = InScene("scene_level_chess_knight") && Memory.LevelComplete(Levels.ChessKnight, split.Difficulty, split.Grade); break;
-                case SplitName.level_chess_bishop: ShouldSplit = InScene("scene_level_chessbishop") && Memory.LevelComplete(Levels.ChessBishop, split.Difficulty, split.Grade); break;
+                case SplitName.level_chess_bishop: ShouldSplit = InScene("scene_level_chess_bishop") && Memory.LevelComplete(Levels.ChessBishop, split.Difficulty, split.Grade); break;
                 case SplitName.level_chess_rook: ShouldSplit = InScene("scene_level_chess_rook") && Memory.LevelComplete(Levels.ChessRook, split.Difficulty, split.Grade); break;
                 case SplitName.level_chess_queen: ShouldSplit = InScene("scene_level_chess_queen") && Memory.LevelComplete(Levels.ChessQueen, split.Difficulty, split.Grade); break;
 
