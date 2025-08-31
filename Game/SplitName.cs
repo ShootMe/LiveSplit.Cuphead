@@ -31,7 +31,7 @@ namespace LiveSplit.Cuphead {
 		level_slime,
 		[Description("Cagney Carnation (Boss)"), ToolTip("Splits when level is finished")]
 		level_flower,
-		[Description("Ribby And Croaks (Boss)"), ToolTip("Splits when level is finished")]
+		[Description("Ribby and Croaks (Boss)"), ToolTip("Splits when level is finished")]
 		level_frogs,
 		[Description("Hilda Berg (Boss)"), ToolTip("Splits when level is finished")]
 		level_flying_blimp,
@@ -49,7 +49,7 @@ namespace LiveSplit.Cuphead {
 
 		[Description("Rumor Honeybottoms (Boss)"), ToolTip("Splits when level is finished")]
 		level_bee,
-		[Description("Captin Brineybeard (Boss)"), ToolTip("Splits when level is finished")]
+		[Description("Captain Brineybeard (Boss)"), ToolTip("Splits when level is finished")]
 		level_pirate,
 		[Description("Werner Werman (Boss)"), ToolTip("Splits when level is finished")]
 		level_mouse,
@@ -81,7 +81,7 @@ namespace LiveSplit.Cuphead {
 		level_dice_palace_enter,
 		[Description("King Dice (Boss)"), ToolTip("Splits when you beat King Dice")]
 		level_dice_palace_main,
-		[Description("Devil (Boss)"), ToolTip("Splits when level is finished")]
+		[Description("The Devil (Boss)"), ToolTip("Splits when level is finished")]
 		level_devil,
 
 		[Description("End Game (Credits)"), ToolTip("Splits when entering the credits")]
