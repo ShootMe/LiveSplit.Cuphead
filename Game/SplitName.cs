@@ -17,7 +17,7 @@ namespace LiveSplit.Cuphead {
 		map_world_3,
 		[Description("Inkwell Hell (Enter Scene)"), ToolTip("Splits when first entering Inkwell Hell")]
 		map_world_4,
-		[Description("Inkwell Hell (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle DLC")]
+		[Description("Inkwell Isle DLC (Enter Scene)"), ToolTip("Splits when first entering Inkwell Isle DLC")]
 		map_world_DLC,
 
 		[Description("Tutorial (Level)"), ToolTip("Splits when leaving the Tutorial level")]
