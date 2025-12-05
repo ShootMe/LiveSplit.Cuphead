@@ -8,7 +8,9 @@ using System.Xml;
 namespace LiveSplit.Cuphead {
 	public partial class SplitterSettings : UserControl {
 		public List<SplitInfo> Splits { get; private set; }
-		private bool isLoading;
+		public bool SplitAfterScoreboard { get; set; }
+		public bool SplitAfterScoreboardSaltbaker { get; set; }
+        private bool isLoading;
 		public SplitterSettings() {
 			isLoading = true;
 			InitializeComponent();
@@ -39,7 +41,11 @@ namespace LiveSplit.Cuphead {
 				flowMain.Controls.Add(setting);
 			}
 
-			isLoading = false;
+            chkScoreBoardTiming.Checked = SplitAfterScoreboard;
+			chkScoreBoardTimingSaltbaker.Checked = SplitAfterScoreboardSaltbaker;
+			chkScoreBoardTimingSaltbaker.Enabled = chkScoreBoardTiming.Checked;
+
+            isLoading = false;
 			this.flowMain.ResumeLayout(true);
 		}
 		private void AddHandlers(SplitterSplitSettings setting) {
@@ -84,7 +90,15 @@ namespace LiveSplit.Cuphead {
 					}
 				}
 			}
-		}
+
+			SplitAfterScoreboard = chkScoreBoardTiming.Checked;
+            SplitAfterScoreboardSaltbaker = chkScoreBoardTimingSaltbaker.Checked;
+
+			if (SplitAfterScoreboard)
+				chkScoreBoardTimingSaltbaker.Enabled = true;
+			else
+				chkScoreBoardTimingSaltbaker.Enabled = false;
+        }
 		public XmlNode UpdateSettings(XmlDocument document) {
 			XmlElement xmlSettings = document.CreateElement("Settings");
 
@@ -98,7 +112,15 @@ namespace LiveSplit.Cuphead {
 				xmlSplits.AppendChild(xmlSplit);
 			}
 
-			return xmlSettings;
+			XmlElement xmlSplitAfterScoreboard = document.CreateElement("SplitAfterScoreboard");
+			xmlSplitAfterScoreboard.InnerText = SplitAfterScoreboard.ToString();
+			xmlSettings.AppendChild(xmlSplitAfterScoreboard);
+
+            XmlElement xmlSplitAfterScoreboardSaltbaker = document.CreateElement("SplitAfterScoreboardSaltbaker");
+            xmlSplitAfterScoreboardSaltbaker.InnerText = SplitAfterScoreboardSaltbaker.ToString();
+            xmlSettings.AppendChild(xmlSplitAfterScoreboardSaltbaker);
+
+            return xmlSettings;
 		}
 		public void SetSettings(XmlNode settings) {
 			Splits.Clear();
@@ -107,7 +129,28 @@ namespace LiveSplit.Cuphead {
 				string splitDescription = splitNode.InnerText;
 				Splits.Add(new SplitInfo(splitDescription));
 			}
-		}
+
+
+			XmlNode splitAfterScoreboard = settings.SelectSingleNode(".//SplitAfterScoreboard");
+			if (splitAfterScoreboard != null)
+			{
+				bool result;
+				if (bool.TryParse(splitAfterScoreboard.InnerText, out result))
+				{
+					SplitAfterScoreboard = result;
+                }
+			}
+
+            XmlNode splitAfterScoreboardSaltbaker = settings.SelectSingleNode(".//SplitAfterScoreboardSaltbaker");
+            if (splitAfterScoreboardSaltbaker != null)
+            {
+                bool result;
+                if (bool.TryParse(splitAfterScoreboardSaltbaker.InnerText, out result))
+                {
+                    SplitAfterScoreboardSaltbaker = result;
+                }
+            }
+        }
 		private void btnAddSplit_Click(object sender, EventArgs e) {
 			SplitterSplitSettings setting = new SplitterSplitSettings();
 			List<string> splitNames = GetAvailableSplits();
@@ -165,8 +208,19 @@ namespace LiveSplit.Cuphead {
 				}
 			}
 		}
-	}
-	public class SplitInfo {
+
+        private void chkScoreBoardTiming_CheckedChanged(object sender, EventArgs e)
+        {
+			UpdateSplits();
+        }
+
+        private void chkScoreBoardTimingSaltbaker_CheckedChanged(object sender, EventArgs e)
+        {
+			UpdateSplits();
+        }
+
+    }
+    public class SplitInfo {
 		public static SplitInfo EndGame = new SplitInfo() { Split = SplitName.EndGame, Grade = Grade.Any, Difficulty = Mode.Any };
 		public SplitName Split { get; set; }
 		public Grade Grade { get; set; }
