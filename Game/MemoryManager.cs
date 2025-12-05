@@ -65,6 +65,24 @@ namespace LiveSplit.Cuphead {
                 default: return Level.Read<float>(Program, -0x20, 0xa4);
             }
         }
+        public float ScoringTime()
+        {
+            int offset = -0x20;
+            switch (PlayerData.Version)
+            {
+                case PointerVersion.SteamDLC: offset = 0x0; break;
+            }
+            if (Level.Read<IntPtr>(Program, offset) != IntPtr.Zero)
+            {
+                //Level.ScoringData.time
+                switch (PlayerData.Version)
+                {
+                    case PointerVersion.SteamDLC: return Level.Read<float>(Program, 0x20, 0x10);
+                    default: return Level.Read<float>(Program, -0x4, 0x8);
+                }
+            }
+            return 0f;
+        }
         public Mode LevelMode() {
             //Level.Current.Mode
             int offset = PlayerData.Version == PointerVersion.SteamDLC ? 0x0 : -0x20;

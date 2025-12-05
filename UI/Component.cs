@@ -71,7 +71,6 @@ namespace LiveSplit.Cuphead {
                             if (logic.IsHooked()) {
                                 int currentSplit = Model == null ? 0 : Model.CurrentState.CurrentPhase == TimerPhase.NotRunning ? 0 : Model.CurrentState.CurrentSplitIndex + 1;
                                 logic.Update(currentSplit);
-                                Model.CurrentState.Run.Metadata.SetCustomVariable("Level Time", ((float)Math.Truncate(logic.Memory.LevelTime() * 100) / 100).ToString("F2"));
                                 PulseLog();
                             }
                             HandleLogic();
@@ -98,6 +97,19 @@ namespace LiveSplit.Cuphead {
         }
         private void HandleLogic() {
             if (Model == null) { return; }
+
+
+            if (!logic.Memory.LevelWon())
+            {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("Level Time", ((float)Math.Truncate(logic.Memory.LevelTime() * 100) / 100).ToString("F2"));
+            }
+            else
+            {
+                Model.CurrentState.Run.Metadata.SetCustomVariable("Level Time", ((float)Math.Truncate(logic.Memory.ScoringTime() * 100) / 100).ToString("F2"));
+            }
+
+
+            
 
             Model.CurrentState.IsGameTimePaused = logic.Paused;
             if (logic.GameTime >= 0) {
