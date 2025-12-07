@@ -93,9 +93,6 @@ namespace LiveSplit.Cuphead {
             //the reset condition should be checked here before that if statement below, because it will cause to exit this method under the reset conditions
             ShouldReset = Settings.Splits.Count == 2 && levelTime == 0;
 
-            if (!updateValues && Paused) {
-                return;
-            }
 
             if (Settings.SplitAfterScoreboard)
             {
@@ -113,58 +110,58 @@ namespace LiveSplit.Cuphead {
                     case SplitName.level_tutorial: ShouldSplit = lastSceneName == "scene_level_tutorial" && sceneName != "scene_level_tutorial"; break;
                     case SplitName.level_chalice_tutorial: ShouldSplit = lastSceneName == "scene_level_chalice_tutorial" && sceneName != "scene_level_chalice_tutorial"; break;
 
-                    case SplitName.level_veggies: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Veggies, split.Difficulty, split.Grade); break;
-                    case SplitName.level_slime: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Slime, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flower: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Flower, split.Difficulty, split.Grade); break;
-                    case SplitName.level_frogs: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Frogs, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flying_blimp: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.FlyingBlimp, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_1_1F: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Platforming_Level_1_1, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_1_2F: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Platforming_Level_1_2, split.Difficulty, split.Grade); break;
-                    case SplitName.level_mausoleum_1: ShouldSplit = sceneName == "scene_map_world_1" && Memory.LevelComplete(Levels.Mausoleum, Mode.Easy); break;
+                    case SplitName.level_veggies: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Veggies, split.Difficulty, split.Grade); break;
+                    case SplitName.level_slime: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Slime, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flower: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Flower, split.Difficulty, split.Grade); break;
+                    case SplitName.level_frogs: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Frogs, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flying_blimp: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.FlyingBlimp, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_1_1F: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Platforming_Level_1_1, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_1_2F: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Platforming_Level_1_2, split.Difficulty, split.Grade); break;
+                    case SplitName.level_mausoleum_1: ShouldSplit = sceneName == "scene_map_world_1" && Paused && Memory.LevelComplete(Levels.Mausoleum, Mode.Easy); break;
 
-                    case SplitName.level_baroness: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Baroness, split.Difficulty, split.Grade); break;
-                    case SplitName.level_clown: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Clown, split.Difficulty, split.Grade); break;
-                    case SplitName.level_dragon: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Dragon, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flying_genie: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.FlyingGenie, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flying_bird: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.FlyingBird, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_2_1F: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Platforming_Level_2_1, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_2_2F: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Platforming_Level_2_2, split.Difficulty, split.Grade); break;
-                    case SplitName.level_mausoleum_2: ShouldSplit = sceneName == "scene_map_world_2" && Memory.LevelComplete(Levels.Mausoleum, Mode.Normal); break;
+                    case SplitName.level_baroness: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Baroness, split.Difficulty, split.Grade); break;
+                    case SplitName.level_clown: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Clown, split.Difficulty, split.Grade); break;
+                    case SplitName.level_dragon: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Dragon, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flying_genie: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.FlyingGenie, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flying_bird: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.FlyingBird, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_2_1F: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Platforming_Level_2_1, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_2_2F: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Platforming_Level_2_2, split.Difficulty, split.Grade); break;
+                    case SplitName.level_mausoleum_2: ShouldSplit = sceneName == "scene_map_world_2" && Paused && Memory.LevelComplete(Levels.Mausoleum, Mode.Normal); break;
 
-                    case SplitName.level_bee: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Bee, split.Difficulty, split.Grade); break;
-                    case SplitName.level_pirate: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Pirate, split.Difficulty, split.Grade); break;
-                    case SplitName.level_sally_stage_play: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.SallyStagePlay, split.Difficulty, split.Grade); break;
-                    case SplitName.level_mouse: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Mouse, split.Difficulty, split.Grade); break;
-                    case SplitName.level_robot: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Robot, split.Difficulty, split.Grade); break;
-                    case SplitName.level_train: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Train, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flying_mermaid: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.FlyingMermaid, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_3_1F: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Platforming_Level_3_1, split.Difficulty, split.Grade); break;
-                    case SplitName.level_platforming_3_2F: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Platforming_Level_3_2, split.Difficulty, split.Grade); break;
-                    case SplitName.level_mausoleum_3: ShouldSplit = sceneName == "scene_map_world_3" && Memory.LevelComplete(Levels.Mausoleum, Mode.Hard); break;
+                    case SplitName.level_bee: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Bee, split.Difficulty, split.Grade); break;
+                    case SplitName.level_pirate: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Pirate, split.Difficulty, split.Grade); break;
+                    case SplitName.level_sally_stage_play: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.SallyStagePlay, split.Difficulty, split.Grade); break;
+                    case SplitName.level_mouse: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Mouse, split.Difficulty, split.Grade); break;
+                    case SplitName.level_robot: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Robot, split.Difficulty, split.Grade); break;
+                    case SplitName.level_train: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Train, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flying_mermaid: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.FlyingMermaid, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_3_1F: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Platforming_Level_3_1, split.Difficulty, split.Grade); break;
+                    case SplitName.level_platforming_3_2F: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Platforming_Level_3_2, split.Difficulty, split.Grade); break;
+                    case SplitName.level_mausoleum_3: ShouldSplit = sceneName == "scene_map_world_3" && Paused && Memory.LevelComplete(Levels.Mausoleum, Mode.Hard); break;
 
-                    case SplitName.level_old_man: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.OldMan, split.Difficulty, split.Grade); break;
-                    case SplitName.level_snow_cult: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.SnowCult, split.Difficulty, split.Grade); break;
-                    case SplitName.level_airplane: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.Airplane, split.Difficulty, split.Grade); break;
-                    case SplitName.level_flying_cowboy: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.FlyingCowboy, split.Difficulty, split.Grade); break;
-                    case SplitName.level_rum_runners: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.RumRunners, split.Difficulty, split.Grade); break;
+                    case SplitName.level_old_man: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.OldMan, split.Difficulty, split.Grade); break;
+                    case SplitName.level_snow_cult: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.SnowCult, split.Difficulty, split.Grade); break;
+                    case SplitName.level_airplane: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.Airplane, split.Difficulty, split.Grade); break;
+                    case SplitName.level_flying_cowboy: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.FlyingCowboy, split.Difficulty, split.Grade); break;
+                    case SplitName.level_rum_runners: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.RumRunners, split.Difficulty, split.Grade); break;
                     case SplitName.level_saltbaker:
                         if (Settings.SplitAfterScoreboardSaltbaker)
                         {
-                            ShouldSplit = sceneName == "scene_cutscene_dlc_ending" && Memory.LevelComplete(Levels.Saltbaker, split.Difficulty, split.Grade); break;
+                            ShouldSplit = sceneName == "scene_cutscene_dlc_ending" && Paused && Memory.LevelComplete(Levels.Saltbaker, split.Difficulty, split.Grade); break;
                         }
                         else
                         {
                             ShouldSplit = InScene("scene_level_saltbaker") && Memory.LevelComplete(Levels.Saltbaker, split.Difficulty, split.Grade); break;
                         }
-                    case SplitName.level_graveyard: ShouldSplit = sceneName == "scene_map_world_DLC" && Memory.LevelComplete(Levels.Graveyard, split.Difficulty, split.Grade); break;
-                    case SplitName.level_chess_pawn: ShouldSplit = sceneName == "scene_level_chess_castle" && Memory.LevelComplete(Levels.ChessPawn, split.Difficulty, split.Grade); break;
-                    case SplitName.level_chess_knight: ShouldSplit = sceneName == "scene_level_chess_castle" && Memory.LevelComplete(Levels.ChessKnight, split.Difficulty, split.Grade); break;
-                    case SplitName.level_chess_bishop: ShouldSplit = sceneName == "scene_level_chess_castle" && Memory.LevelComplete(Levels.ChessBishop, split.Difficulty, split.Grade); break;
-                    case SplitName.level_chess_rook: ShouldSplit = sceneName == "scene_level_chess_castle" && Memory.LevelComplete(Levels.ChessRook, split.Difficulty, split.Grade); break;
-                    case SplitName.level_chess_queen: ShouldSplit = sceneName == "scene_level_chess_castle" && Memory.LevelComplete(Levels.ChessQueen, split.Difficulty, split.Grade); break;
+                    case SplitName.level_graveyard: ShouldSplit = sceneName == "scene_map_world_DLC" && Paused && Memory.LevelComplete(Levels.Graveyard, split.Difficulty, split.Grade); break;
+                    case SplitName.level_chess_pawn: ShouldSplit = sceneName == "scene_level_chess_castle" && Paused && Memory.LevelComplete(Levels.ChessPawn, split.Difficulty, split.Grade); break;
+                    case SplitName.level_chess_knight: ShouldSplit = sceneName == "scene_level_chess_castle" && Paused && Memory.LevelComplete(Levels.ChessKnight, split.Difficulty, split.Grade); break;
+                    case SplitName.level_chess_bishop: ShouldSplit = sceneName == "scene_level_chess_castle" && Paused && Memory.LevelComplete(Levels.ChessBishop, split.Difficulty, split.Grade); break;
+                    case SplitName.level_chess_rook: ShouldSplit = sceneName == "scene_level_chess_castle" && Paused && Memory.LevelComplete(Levels.ChessRook, split.Difficulty, split.Grade); break;
+                    case SplitName.level_chess_queen: ShouldSplit = sceneName == "scene_level_chess_castle" && Paused && Memory.LevelComplete(Levels.ChessQueen, split.Difficulty, split.Grade); break;
 
                     case SplitName.level_dice_palace_enter: ShouldSplit = sceneName == "scene_cutscene_kingdice"; break;
-                    case SplitName.level_dice_palace_main: ShouldSplit = sceneName == "scene_map_world_4" && Memory.LevelComplete(Levels.DicePalaceMain, split.Difficulty, split.Grade); break;
+                    case SplitName.level_dice_palace_main: ShouldSplit = sceneName == "scene_map_world_4" && Paused && Memory.LevelComplete(Levels.DicePalaceMain, split.Difficulty, split.Grade); break;
                     case SplitName.level_devil: ShouldSplit = InScene("scene_level_devil") && Memory.LevelComplete(Levels.Devil, split.Difficulty, split.Grade); break;
 
                     case SplitName.EndGame: ShouldSplit = sceneName == "scene_cutscene_credits"; break;
@@ -249,12 +246,6 @@ namespace LiveSplit.Cuphead {
             }
             lastSceneName = sceneName;
 
-            if (Running && Paused) {
-                ShouldSplit = false;
-            } else if (DateTime.Now > splitLate) {
-                ShouldSplit = true;
-                splitLate = DateTime.MaxValue;
-            }
         }
         private bool InScene(string scene) {
             return lastSceneName == scene || lastSceneSeen == scene;
