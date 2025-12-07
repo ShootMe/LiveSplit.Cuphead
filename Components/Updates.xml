@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <updates>
+	<update version="1.2.6">
+		<files>
+			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
+		</files>
+		<changelog>
+			<change> Adjust Post-Scoreboard Split Timing to be on loading screen (0.6s later than the previous update) </change>
+		</changelog>
+	</update>
 	<update version="1.2.5">
 		<files>
 			<file path="Components/LiveSplit.Cuphead.dll" status="changed"/>
